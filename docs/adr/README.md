@@ -1,6 +1,6 @@
 # Architecture Decision Records
 
-These 28 ADRs define Mewnu's product scope, architecture, presentation, test strategy, and release process. Each record explains the problem, selected solution, viable alternatives, consequences, and implementation criteria.
+These 29 ADRs document Mewnu's product scope, architecture, presentation, test strategy, and release process. Each record explains the problem, selected solution, viable alternatives, consequences, and implementation criteria.
 
 The ADRs use the present tense as implementation guidance. `accepted` identifies a decision that applies to Mewnu. The documentation date records this edition; it does not state when a decision was originally made. These records do not establish a historical meeting or approval timeline.
 
@@ -36,6 +36,7 @@ The scope covers significant application and development decisions. Variable nam
 | [0026](0026-open-source-governance.md) | Use MIT for code and artwork with documented contribution paths | accepted | 2026-09-30 |
 | [0027](0027-workflow-dependencies.md) | Pin GitHub Actions to commit SHAs and maintain them with Dependabot | accepted | 2026-09-30 |
 | [0028](0028-calendar-title-decoding.md) | Decode a bounded set of entities in calendar and event titles | accepted | 2026-09-30 |
+| [0029](0029-icon-action-layout.md) | Place Help in the footer and use consistent icon buttons | accepted | 2026-09-30 |
 
 ## Using these records
 

@@ -12,6 +12,28 @@ final class MewnuUITests: XCTestCase {
         return statusItem
     }
 
+    private func assertFooterLayout(_ app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
+        let buttons = ["helpButton", "openCalendarButton", "quitButton"].map { app.buttons[$0] }
+        let handle = app.descendants(matching: .any)["resizeWindowHandle"]
+        for button in buttons {
+            XCTAssertTrue(button.isHittable, file: file, line: line)
+            XCTAssertEqual(button.frame.width, 28, accuracy: 1, file: file, line: line)
+            XCTAssertEqual(button.frame.height, 28, accuracy: 1, file: file, line: line)
+            XCTAssertEqual(button.frame.midY, buttons[0].frame.midY, accuracy: 1, file: file, line: line)
+            XCTAssertLessThanOrEqual(button.frame.maxY, handle.frame.minY, file: file, line: line)
+        }
+        for index in 0..<2 {
+            XCTAssertEqual(buttons[index + 1].frame.minX - buttons[index].frame.maxX, 8,
+                           accuracy: 1, file: file, line: line)
+        }
+        let filter = app.buttons["calendarFilterButton"]
+        if filter.exists {
+            XCTAssertEqual(filter.frame.width, buttons[0].frame.width, accuracy: 1, file: file, line: line)
+            XCTAssertEqual(filter.frame.height, buttons[0].frame.height, accuracy: 1, file: file, line: line)
+            XCTAssertLessThan(filter.frame.maxY, buttons[0].frame.minY, file: file, line: line)
+        }
+    }
+
     func testWindowHeightPreferenceResizesMenu() {
         // CI runners do not reliably deliver synthetic drags to a MenuBarExtra window.
         let app = XCUIApplication()
@@ -22,6 +44,7 @@ final class MewnuUITests: XCTestCase {
 
         let handle = app.descendants(matching: .any)["resizeWindowHandle"]
         XCTAssertTrue(handle.waitForExistence(timeout: 5))
+        assertFooterLayout(app)
         let originalY = handle.frame.midY
         let originalHeight = handle.label
 
@@ -31,6 +54,7 @@ final class MewnuUITests: XCTestCase {
         openMenu(app)
 
         XCTAssertTrue(handle.waitForExistence(timeout: 5))
+        assertFooterLayout(app)
         XCTAssertNotEqual(handle.label, originalHeight)
         XCTAssertLessThan(handle.frame.midY, originalY - 10)
         XCTAssertTrue(app.staticTexts["monthTitle"].exists)
@@ -43,13 +67,36 @@ final class MewnuUITests: XCTestCase {
         openMenu(app)
 
         let helpButton = app.buttons["helpButton"]
+        assertFooterLayout(app)
         XCTAssertTrue(["Help", "Hilfe"].contains(helpButton.label))
         helpButton.click()
         XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        assertFooterLayout(app)
+        XCTAssertFalse(app.buttons["calendarFilterButton"].exists)
         XCTAssertTrue(["Back", "Zurück"].contains(helpButton.label))
         helpButton.click()
         XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
 
+        helpButton.click()
+        XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+
+        app.buttons["calendarFilterButton"].click()
+        XCTAssertTrue(app.staticTexts["calendarPickerTitle"].waitForExistence(timeout: 5))
+        assertFooterLayout(app)
+        helpButton.click()
+        XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        helpButton.click()
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+
+        app.buttons["eventRow_demo-1"].click()
+        XCTAssertTrue(app.buttons["closeEventDetailsButton"].waitForExistence(timeout: 5))
+        assertFooterLayout(app)
+        helpButton.click()
+        XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        helpButton.click()
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
         app.buttons["eventRow_demo-1"].click()
         XCTAssertTrue(app.buttons["closeEventDetailsButton"].waitForExistence(timeout: 5))
         app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
@@ -96,6 +143,8 @@ final class MewnuUITests: XCTestCase {
 
         let calendarButton = app.buttons["openCalendarButton"]
         let quitButton = app.buttons["quitButton"]
+        assertFooterLayout(app)
+        XCTAssertEqual(app.buttons["helpButton"].label, "Hilfe")
         XCTAssertEqual(calendarButton.label, "Kalender öffnen")
         XCTAssertEqual(quitButton.label, "Beenden")
         XCTAssertEqual(calendarButton.frame.width, 28, accuracy: 1)

@@ -48,6 +48,8 @@ Model equality and helper algorithms are implementation details unless required 
 | Open Help | Clear detail and filter selection; Back or Escape exits Help |
 | Calendar / power icon | Open Apple Calendar or terminate the app; localize labels and tooltips |
 
+The header keeps calendar selection close to its affected content. The footer orders Help (Back while Help is open), Open Apple Calendar, and Quit from left to right. These four actions share icon metrics, clickable areas, and native interaction feedback; see [ADR-0029](adr/0029-icon-action-layout.md).
+
 Presentation prioritizes Help, then permission state. With allowed access, details take precedence over filters and the calendar. Show errors on one line in the footer with their complete text in a tooltip. A separate loading spinner or elaborate error dialog is outside the defined scope.
 
 ## Day and display rules

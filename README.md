@@ -33,7 +33,7 @@ These native app views use **fictional sample calendars and events** on a fixed 
     <td width="33%" valign="top">
       <strong>Month and daily agenda</strong><br>
       Find a day and see its appointments.<br><br>
-      <a href="docs/images/mewnu-overview.png"><img src="docs/images/mewnu-overview.png" width="280" alt="Mewnu showing September 2026, calendar dots, a sample agenda for Wednesday 16 September, and calendar and power icons in the footer"></a>
+      <a href="docs/images/mewnu-overview.png"><img src="docs/images/mewnu-overview.png" width="280" alt="Mewnu showing September 2026, calendar dots, a sample agenda for Wednesday 16 September, and help, calendar, and power icons in the footer"></a>
     </td>
     <td width="33%" valign="top">
       <strong>Event details</strong><br>
@@ -102,7 +102,7 @@ If access was denied or revoked, open **System Settings â†’ Privacy & Security â
 | Read an event | Select its row in the agenda |
 | Return from details or help | Use the close/back button or **Escape** |
 | Resize the agenda | Drag the handle at the bottom of the window |
-| Find in-app help | Select **?** in the header |
+| Find in-app help | Select **?** in the footer |
 | Create or edit events | Select the calendar icon at the bottom, then edit in Apple Calendar |
 | Exit Mewnu | Select the power icon at the bottom of the menu |
 

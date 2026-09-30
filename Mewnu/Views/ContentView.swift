@@ -75,36 +75,17 @@ struct ContentView: View {
                 .accessibilityHidden(true)
             Text("Mewnu").font(.headline)
             Spacer()
-            Button {
-                if showingHelp {
-                    showingHelp = false
-                } else {
-                    model.selectedEvent = nil
-                    model.showingCalendars = false
-                    showingHelp = true
-                }
-            } label: {
-                Image(systemName: showingHelp ? "chevron.left" : "questionmark.circle")
-                    .frame(width: 28, height: 28)
-                    .contentShape(Rectangle())
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel(helpButtonLabel)
-            .help(helpButtonLabel)
-            .accessibilityIdentifier("helpButton")
             if model.access == .allowed && model.selectedEvent == nil && !showingHelp {
-                Button {
+                IconActionButton(
+                    symbol: model.showingCalendars ? "calendar" : "line.3.horizontal.decrease",
+                    label: model.showingCalendars ? String(localized: "Show calendar") : String(localized: "Choose calendars"),
+                    identifier: "calendarFilterButton"
+                ) {
                     model.showingCalendars.toggle()
-                } label: {
-                    Image(systemName: model.showingCalendars ? "calendar" : "line.3.horizontal.decrease")
-                        .frame(width: 28, height: 28)
-                        .contentShape(Rectangle())
                 }
-                .help(model.showingCalendars ? "Show calendar" : "Choose calendars")
-                .accessibilityLabel(model.showingCalendars ? "Show calendar" : "Choose calendars")
-                .accessibilityIdentifier("calendarFilterButton")
             }
         }
+        .frame(minHeight: 28)
         .padding(.horizontal, 18)
         .padding(.vertical, 13)
     }
@@ -301,31 +282,38 @@ struct ContentView: View {
     }
 
     private var footer: some View {
-        HStack {
+        HStack(spacing: 8) {
             if let error = model.errorMessage {
                 Text(error).font(.caption).foregroundStyle(.red).lineLimit(1)
                     .help(error)
+                    .layoutPriority(-1)
             }
-            Spacer()
-            Button { model.openCalendar() } label: {
-                Image(systemName: "calendar")
-                    .frame(width: 28, height: 28)
-                    .contentShape(Rectangle())
+            Spacer(minLength: 0)
+            HStack(spacing: 8) {
+                IconActionButton(
+                    symbol: showingHelp ? "chevron.left" : "questionmark.circle",
+                    label: helpButtonLabel,
+                    identifier: "helpButton"
+                ) {
+                    if showingHelp {
+                        showingHelp = false
+                    } else {
+                        model.selectedEvent = nil
+                        model.showingCalendars = false
+                        showingHelp = true
+                    }
+                }
+                IconActionButton(symbol: "calendar", label: String(localized: "Open Calendar"),
+                                 identifier: "openCalendarButton") {
+                    model.openCalendar()
+                }
+                IconActionButton(symbol: "power", label: String(localized: "Quit"),
+                                 identifier: "quitButton") {
+                    NSApplication.shared.terminate(nil)
+                }
             }
-            .accessibilityLabel("Open Calendar")
-            .accessibilityIdentifier("openCalendarButton")
-            .help("Open Calendar")
-            Button { NSApplication.shared.terminate(nil) } label: {
-                Image(systemName: "power")
-                    .frame(width: 28, height: 28)
-                    .contentShape(Rectangle())
-            }
-            .accessibilityLabel("Quit")
-            .accessibilityIdentifier("quitButton")
-            .help("Quit")
+            .fixedSize()
         }
-        .buttonStyle(.plain)
-        .font(.caption)
         .padding(.horizontal, 18)
         .padding(.vertical, 10)
     }
@@ -365,6 +353,29 @@ struct ContentView: View {
             }
             .accessibilityIdentifier("resizeWindowHandle")
             .help("Drag to change the window height")
+    }
+}
+
+// Native borderless buttons retain macOS hover, press, and keyboard-focus feedback.
+private struct IconActionButton: View {
+    let symbol: String
+    let label: String
+    let identifier: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: symbol)
+                .font(.system(size: 14, weight: .regular))
+                .foregroundStyle(.primary)
+                .frame(width: 28, height: 28)
+                .contentShape(Rectangle())
+        }
+        .buttonStyle(.borderless)
+        .controlSize(.regular)
+        .accessibilityLabel(label)
+        .help(label)
+        .accessibilityIdentifier(identifier)
     }
 }
 
