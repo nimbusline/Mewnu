@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		12B66DAF5A503D5F67DE3056 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811077955E9635E0751F785C /* Models.swift */; };
+		195B9F2E7A2AB3A58E9E3E3D /* ContentViewRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909672AD4BB0D67FF2352A59 /* ContentViewRenderingTests.swift */; };
+		250FF92476FF248D5EED9310 /* EventDisplayTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFFCE9A7F840621B99E3930 /* EventDisplayTextTests.swift */; };
+		32D5855C53C6D5A259919296 /* MewnuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D1C6DC1AE9E78F1D7D12E /* MewnuApp.swift */; };
+		3B85F82B76B12670DEEB55AC /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D18916480ACF4BC33B29608 /* Localizable.strings */; };
+		55ED2DF9A4F6DF096B4C34EE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C64212A7EB1AC30FD2B03AA /* ContentView.swift */; };
+		59C9C8D134B87B04386358A7 /* CalendarService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B023CC896B588DFDC9BB0F /* CalendarService.swift */; };
+		69E9A421EFFD74ACDB10E3A8 /* EventDisplayText.swift in Sources */ = {isa = PBXBuildFile; fileRef = D609FAB09A0A17E77B7AF877 /* EventDisplayText.swift */; };
+		69EE9576D07915130148A2FB /* MonthGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB2C56AB472B8CB95126488 /* MonthGridView.swift */; };
+		76592A769E7472EA2AB518D6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3511E9687AB2FA7FAFE36997 /* InfoPlist.strings */; };
+		796F97F6D379521C8DE12854 /* CalendarMath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 67E6450765ECB6419F9312F6 /* CalendarMath.swift */; };
+		7F5519852A39B8BFC62C3318 /* MenuWindowSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45D0BC668B4E8AEF02589FD7 /* MenuWindowSize.swift */; };
+		8418247FD88C99D1D01E4C79 /* CalendarTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75EE0E6CFCA74A9962DE36DA /* CalendarTextTests.swift */; };
+		9739E86BD15A8B0A9ED815E9 /* EventKitCalendarServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C83D4EB3F5F2D9866C3A36C4 /* EventKitCalendarServiceTests.swift */; };
+		988F45C091D6D0ED79B06997 /* CalendarViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494CE5805C5684E2F8FB4762 /* CalendarViewModelTests.swift */; };
+		9AD9CF3F340EFFFB26B92E28 /* CalendarMathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732E19BF13B4626D68D61866 /* CalendarMathTests.swift */; };
+		BAF3CCF999D6A38EC16A76ED /* CalendarWorkspace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CC0B3C1FE802E282BCF4995 /* CalendarWorkspace.swift */; };
+		C7A33F90824CC731AE6B3901 /* CalendarText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3744F05C4207872923A3AD0D /* CalendarText.swift */; };
+		CC8BA801269C28A6ED69B175 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A0FC1C54D33C3181902B60F /* Assets.xcassets */; };
+		CFD4A13683A55E1C032E0D5D /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5660516385A82CC39AEAC3D2 /* CalendarViewModel.swift */; };
+		E64F74323041C9949665B149 /* MewnuUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90EE9E449FAE65BE10C1D392 /* MewnuUITests.swift */; };
+		F366B102A18FE291B9C6A5DD /* MenuWindowSizeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F2F1028C0A3F68C5F417A0 /* MenuWindowSizeTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		163B9AC31E290B0B326E590B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE5B561C285F1A01646DC201 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95F4B39420D99D01025B87AD;
+			remoteInfo = Mewnu;
+		};
+		D38F10A0963C558DE58E163D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE5B561C285F1A01646DC201 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 95F4B39420D99D01025B87AD;
+			remoteInfo = Mewnu;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		00F2F1028C0A3F68C5F417A0 /* MenuWindowSizeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuWindowSizeTests.swift; sourceTree = "<group>"; };
+		3017D423F8BC2F9F5D7695A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		30CB23CB719FFDD0B3FB76CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3744F05C4207872923A3AD0D /* CalendarText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarText.swift; sourceTree = "<group>"; };
+		446C754F3E7D3C00E3954A20 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
+		45D0BC668B4E8AEF02589FD7 /* MenuWindowSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuWindowSize.swift; sourceTree = "<group>"; };
+		494CE5805C5684E2F8FB4762 /* CalendarViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModelTests.swift; sourceTree = "<group>"; };
+		4D26011B61DCF53608F75D3C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5660516385A82CC39AEAC3D2 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		5A0FC1C54D33C3181902B60F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		5BB2C56AB472B8CB95126488 /* MonthGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthGridView.swift; sourceTree = "<group>"; };
+		5CC0B3C1FE802E282BCF4995 /* CalendarWorkspace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarWorkspace.swift; sourceTree = "<group>"; };
+		67E6450765ECB6419F9312F6 /* CalendarMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMath.swift; sourceTree = "<group>"; };
+		732E19BF13B4626D68D61866 /* CalendarMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMathTests.swift; sourceTree = "<group>"; };
+		75EE0E6CFCA74A9962DE36DA /* CalendarTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTextTests.swift; sourceTree = "<group>"; };
+		811077955E9635E0751F785C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		909672AD4BB0D67FF2352A59 /* ContentViewRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewRenderingTests.swift; sourceTree = "<group>"; };
+		90EE9E449FAE65BE10C1D392 /* MewnuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MewnuUITests.swift; sourceTree = "<group>"; };
+		9BA877609E514836A497B91B /* MewnuTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MewnuTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C64212A7EB1AC30FD2B03AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AB2382E60C6612C15F15E02E /* Mewnu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mewnu.entitlements; sourceTree = "<group>"; };
+		B57D1C6DC1AE9E78F1D7D12E /* MewnuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MewnuApp.swift; sourceTree = "<group>"; };
+		C6C485C3128CC1DDE7BA69EE /* MewnuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MewnuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C83D4EB3F5F2D9866C3A36C4 /* EventKitCalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitCalendarServiceTests.swift; sourceTree = "<group>"; };
+		CDFFCE9A7F840621B99E3930 /* EventDisplayTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDisplayTextTests.swift; sourceTree = "<group>"; };
+		D609FAB09A0A17E77B7AF877 /* EventDisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDisplayText.swift; sourceTree = "<group>"; };
+		E4B023CC896B588DFDC9BB0F /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
+		F1FCFB0B2763423CC77EF2CB /* Mewnu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mewnu.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F56F34A5B2510742D18D68E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		2F50E2C744DE10CF96FFAD1C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9C64212A7EB1AC30FD2B03AA /* ContentView.swift */,
+				5BB2C56AB472B8CB95126488 /* MonthGridView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4B77E7CA06F411F484B68D6B = {
+			isa = PBXGroup;
+			children = (
+				683576C728B9B1F45ABCD909 /* Mewnu */,
+				61C112036C33CBB15D26CF53 /* MewnuTests */,
+				6DAF0D8BA9CDAF72264DA65A /* MewnuUITests */,
+				99D31454EBF332E167CB16AD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		61C112036C33CBB15D26CF53 /* MewnuTests */ = {
+			isa = PBXGroup;
+			children = (
+				732E19BF13B4626D68D61866 /* CalendarMathTests.swift */,
+				75EE0E6CFCA74A9962DE36DA /* CalendarTextTests.swift */,
+				494CE5805C5684E2F8FB4762 /* CalendarViewModelTests.swift */,
+				909672AD4BB0D67FF2352A59 /* ContentViewRenderingTests.swift */,
+				CDFFCE9A7F840621B99E3930 /* EventDisplayTextTests.swift */,
+				C83D4EB3F5F2D9866C3A36C4 /* EventKitCalendarServiceTests.swift */,
+				00F2F1028C0A3F68C5F417A0 /* MenuWindowSizeTests.swift */,
+			);
+			path = MewnuTests;
+			sourceTree = "<group>";
+		};
+		683576C728B9B1F45ABCD909 /* Mewnu */ = {
+			isa = PBXGroup;
+			children = (
+				5A0FC1C54D33C3181902B60F /* Assets.xcassets */,
+				3017D423F8BC2F9F5D7695A1 /* Info.plist */,
+				AB2382E60C6612C15F15E02E /* Mewnu.entitlements */,
+				B57D1C6DC1AE9E78F1D7D12E /* MewnuApp.swift */,
+				7F2185BACAD2B7C464BBB5BE /* Core */,
+				3511E9687AB2FA7FAFE36997 /* InfoPlist.strings */,
+				4D18916480ACF4BC33B29608 /* Localizable.strings */,
+				2F50E2C744DE10CF96FFAD1C /* Views */,
+			);
+			path = Mewnu;
+			sourceTree = "<group>";
+		};
+		6DAF0D8BA9CDAF72264DA65A /* MewnuUITests */ = {
+			isa = PBXGroup;
+			children = (
+				90EE9E449FAE65BE10C1D392 /* MewnuUITests.swift */,
+			);
+			path = MewnuUITests;
+			sourceTree = "<group>";
+		};
+		7F2185BACAD2B7C464BBB5BE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				67E6450765ECB6419F9312F6 /* CalendarMath.swift */,
+				E4B023CC896B588DFDC9BB0F /* CalendarService.swift */,
+				3744F05C4207872923A3AD0D /* CalendarText.swift */,
+				5660516385A82CC39AEAC3D2 /* CalendarViewModel.swift */,
+				5CC0B3C1FE802E282BCF4995 /* CalendarWorkspace.swift */,
+				D609FAB09A0A17E77B7AF877 /* EventDisplayText.swift */,
+				45D0BC668B4E8AEF02589FD7 /* MenuWindowSize.swift */,
+				811077955E9635E0751F785C /* Models.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		99D31454EBF332E167CB16AD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F1FCFB0B2763423CC77EF2CB /* Mewnu.app */,
+				9BA877609E514836A497B91B /* MewnuTests.xctest */,
+				C6C485C3128CC1DDE7BA69EE /* MewnuUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		88670B40BBD710C7D98779DD /* MewnuUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93B756AC9D372D8DA5B25DDA /* Build configuration list for PBXNativeTarget "MewnuUITests" */;
+			buildPhases = (
+				70F7173F99714E4E4D48FCD3 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				60F702597BE48DC5CD94D77E /* PBXTargetDependency */,
+			);
+			name = MewnuUITests;
+			packageProductDependencies = (
+			);
+			productName = MewnuUITests;
+			productReference = C6C485C3128CC1DDE7BA69EE /* MewnuUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		95F4B39420D99D01025B87AD /* Mewnu */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A29C2E070DC3FF4C82640969 /* Build configuration list for PBXNativeTarget "Mewnu" */;
+			buildPhases = (
+				26B9B9B31B19E62E6B9B462B /* Sources */,
+				6774A0146D9F67D1D5AE27BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mewnu;
+			packageProductDependencies = (
+			);
+			productName = Mewnu;
+			productReference = F1FCFB0B2763423CC77EF2CB /* Mewnu.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F61CA3285CA79455E7AB9A83 /* MewnuTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7236B5BC4FF38BB3BB88D526 /* Build configuration list for PBXNativeTarget "MewnuTests" */;
+			buildPhases = (
+				6DAE190CC35BDAB8D76FE2C1 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				68CA85B8973B6E9A6200A7E7 /* PBXTargetDependency */,
+			);
+			name = MewnuTests;
+			packageProductDependencies = (
+			);
+			productName = MewnuTests;
+			productReference = 9BA877609E514836A497B91B /* MewnuTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE5B561C285F1A01646DC201 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					88670B40BBD710C7D98779DD = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 95F4B39420D99D01025B87AD;
+					};
+					95F4B39420D99D01025B87AD = {
+						ProvisioningStyle = Automatic;
+					};
+					F61CA3285CA79455E7AB9A83 = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 2006EB8CD9B692285D374E9A /* Build configuration list for PBXProject "Mewnu" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				de,
+				en,
+			);
+			mainGroup = 4B77E7CA06F411F484B68D6B;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 99D31454EBF332E167CB16AD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				95F4B39420D99D01025B87AD /* Mewnu */,
+				F61CA3285CA79455E7AB9A83 /* MewnuTests */,
+				88670B40BBD710C7D98779DD /* MewnuUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6774A0146D9F67D1D5AE27BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CC8BA801269C28A6ED69B175 /* Assets.xcassets in Resources */,
+				76592A769E7472EA2AB518D6 /* InfoPlist.strings in Resources */,
+				3B85F82B76B12670DEEB55AC /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		26B9B9B31B19E62E6B9B462B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				796F97F6D379521C8DE12854 /* CalendarMath.swift in Sources */,
+				59C9C8D134B87B04386358A7 /* CalendarService.swift in Sources */,
+				C7A33F90824CC731AE6B3901 /* CalendarText.swift in Sources */,
+				CFD4A13683A55E1C032E0D5D /* CalendarViewModel.swift in Sources */,
+				BAF3CCF999D6A38EC16A76ED /* CalendarWorkspace.swift in Sources */,
+				55ED2DF9A4F6DF096B4C34EE /* ContentView.swift in Sources */,
+				69E9A421EFFD74ACDB10E3A8 /* EventDisplayText.swift in Sources */,
+				7F5519852A39B8BFC62C3318 /* MenuWindowSize.swift in Sources */,
+				32D5855C53C6D5A259919296 /* MewnuApp.swift in Sources */,
+				12B66DAF5A503D5F67DE3056 /* Models.swift in Sources */,
+				69EE9576D07915130148A2FB /* MonthGridView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6DAE190CC35BDAB8D76FE2C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9AD9CF3F340EFFFB26B92E28 /* CalendarMathTests.swift in Sources */,
+				8418247FD88C99D1D01E4C79 /* CalendarTextTests.swift in Sources */,
+				988F45C091D6D0ED79B06997 /* CalendarViewModelTests.swift in Sources */,
+				195B9F2E7A2AB3A58E9E3E3D /* ContentViewRenderingTests.swift in Sources */,
+				250FF92476FF248D5EED9310 /* EventDisplayTextTests.swift in Sources */,
+				9739E86BD15A8B0A9ED815E9 /* EventKitCalendarServiceTests.swift in Sources */,
+				F366B102A18FE291B9C6A5DD /* MenuWindowSizeTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70F7173F99714E4E4D48FCD3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E64F74323041C9949665B149 /* MewnuUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		60F702597BE48DC5CD94D77E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95F4B39420D99D01025B87AD /* Mewnu */;
+			targetProxy = D38F10A0963C558DE58E163D /* PBXContainerItemProxy */;
+		};
+		68CA85B8973B6E9A6200A7E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 95F4B39420D99D01025B87AD /* Mewnu */;
+			targetProxy = 163B9AC31E290B0B326E590B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		3511E9687AB2FA7FAFE36997 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F56F34A5B2510742D18D68E5 /* de */,
+				4D26011B61DCF53608F75D3C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		4D18916480ACF4BC33B29608 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				446C754F3E7D3C00E3954A20 /* de */,
+				30CB23CB719FFDD0B3FB76CB /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		46AEB5D69BD60B59D66174FA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu.uitests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = Mewnu;
+			};
+			name = Debug;
+		};
+		74E6F3B6B2B7674F0EC158FB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mewnu/Mewnu.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Mewnu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		984DDFC0DC06E6AE98E82F04 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu.uitests;
+				SDKROOT = macosx;
+				TEST_TARGET_NAME = Mewnu;
+			};
+			name = Release;
+		};
+		9A70D9C46789B404B123FFAD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mewnu/Mewnu.entitlements;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = Mewnu/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AF0EBAADD05E23962C27829E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mewnu.app/Contents/MacOS/Mewnu";
+			};
+			name = Release;
+		};
+		D3DE1553D498ACBBA5F5D364 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		F12CDF7CF4B2C012267F5FF2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 26.0;
+				MARKETING_VERSION = 1.0.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FDF4C9BCEBDC68BAD2B0B1D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = io.github.nimbusline.mewnu.tests;
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Mewnu.app/Contents/MacOS/Mewnu";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2006EB8CD9B692285D374E9A /* Build configuration list for PBXProject "Mewnu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F12CDF7CF4B2C012267F5FF2 /* Debug */,
+				D3DE1553D498ACBBA5F5D364 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7236B5BC4FF38BB3BB88D526 /* Build configuration list for PBXNativeTarget "MewnuTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FDF4C9BCEBDC68BAD2B0B1D0 /* Debug */,
+				AF0EBAADD05E23962C27829E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		93B756AC9D372D8DA5B25DDA /* Build configuration list for PBXNativeTarget "MewnuUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46AEB5D69BD60B59D66174FA /* Debug */,
+				984DDFC0DC06E6AE98E82F04 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		A29C2E070DC3FF4C82640969 /* Build configuration list for PBXNativeTarget "Mewnu" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9A70D9C46789B404B123FFAD /* Debug */,
+				74E6F3B6B2B7674F0EC158FB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE5B561C285F1A01646DC201 /* Project object */;
+}

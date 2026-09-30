@@ -1,0 +1,35 @@
+name: Build and test
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: xcode-27
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Generate project
+        run: xcodegen generate
+      - name: Unit tests with coverage
+        run: xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' -enableCodeCoverage YES -resultBundlePath "$RUNNER_TEMP/MewnuUnitTests.xcresult" CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES '-only-testing:MewnuTests' test
+      - name: Check core coverage
+        run: python3 scripts/check-unit-coverage.py "$RUNNER_TEMP/MewnuUnitTests.xcresult"
+      - name: Verify universal Release build
+        run: |
+          xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -configuration Release -destination 'platform=macOS' -derivedDataPath "$RUNNER_TEMP/MewnuRelease" CODE_SIGNING_ALLOWED=NO ARCHS='arm64 x86_64' ONLY_ACTIVE_ARCH=NO build
+          binary="$RUNNER_TEMP/MewnuRelease/Build/Products/Release/Mewnu.app/Contents/MacOS/Mewnu"
+          lipo -verify_arch arm64 "$binary"
+          lipo -verify_arch x86_64 "$binary"
+          lipo -archs "$binary"
+      - name: UI tests
+        run: xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES '-only-testing:MewnuUITests' test

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Mewnu app icon</title>
+  <desc id="desc">A rust-red cat on an ice-blue tile.</desc>
+  <!-- Generated from mewnu-logo.svg by scripts/generate-brand-assets.py. -->
+  <rect x="100" y="100" width="824" height="824" rx="184" fill="#CEE8F0"/>
+  <g transform="translate(200 184) scale(26)">
+    <path xmlns="http://www.w3.org/2000/svg" id="mewnu-mark" fill="#A63925" fill-rule="evenodd" d="M4.25 3.2C3.5 2.7 2.5 3.15 2.5 4.15V11C1.7 12.1 1.25 13.4 1.25 14.85C1.25 19.05 5.55 21.5 12 21.5S22.75 19.05 22.75 14.85C22.75 13.4 22.3 12.1 21.5 11V4.15C21.5 3.15 20.5 2.7 19.75 3.2L15.5 6.3C13.25 5.65 10.75 5.65 8.5 6.3ZM8.5 12.5C7.81 12.5 7.25 13.06 7.25 13.75V14.75C7.25 15.44 7.81 16 8.5 16S9.75 15.44 9.75 14.75V13.75C9.75 13.06 9.19 12.5 8.5 12.5ZM15.5 12.5C14.81 12.5 14.25 13.06 14.25 13.75V14.75C14.25 15.44 14.81 16 15.5 16S16.75 15.44 16.75 14.75V13.75C16.75 13.06 16.19 12.5 15.5 12.5Z" />
+  </g>
+</svg>

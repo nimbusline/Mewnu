@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest a focused improvement to Mewnu.
+title: "[Feature] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Mewnu is a small, read-only view of Apple Calendar. Please keep examples and screenshots free of personal calendar data.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: Describe the task that is difficult today.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain how you would expect Mewnu to work.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Other ideas or examples
+    validations:
+      required: false

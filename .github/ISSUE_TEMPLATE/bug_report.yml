@@ -1,0 +1,46 @@
+name: Bug report
+description: Report something in Mewnu that does not work as expected.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Use sample data in screenshots and logs. Do not post real event titles, notes, locations, account names, or security vulnerabilities here.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What happened?
+      description: Describe the visible problem and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Open Mewnu from the menu bar
+        2. Select ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Mewnu version or commit
+      placeholder: "For example, 1.0.0 or a short commit hash"
+    validations:
+      required: true
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version and Mac architecture
+      placeholder: "For example, macOS 26.0 on Apple silicon or Intel"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add a screenshot with synthetic data or redacted logs if useful.
+    validations:
+      required: false

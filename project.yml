@@ -1,0 +1,51 @@
+name: Mewnu
+options:
+  bundleIdPrefix: io.github.nimbusline
+  deploymentTarget:
+    macOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: 5.0
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    CODE_SIGN_STYLE: Automatic
+    MARKETING_VERSION: 1.0.0
+    CURRENT_PROJECT_VERSION: 1
+targets:
+  Mewnu:
+    type: application
+    platform: macOS
+    sources:
+      - Mewnu
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.nimbusline.mewnu
+        INFOPLIST_FILE: Mewnu/Info.plist
+        CODE_SIGN_ENTITLEMENTS: Mewnu/Mewnu.entitlements
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: NO
+    scheme:
+      testTargets:
+        - MewnuTests
+        - MewnuUITests
+  MewnuTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - MewnuTests
+    dependencies:
+      - target: Mewnu
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.nimbusline.mewnu.tests
+        GENERATE_INFOPLIST_FILE: YES
+  MewnuUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - MewnuUITests
+    dependencies:
+      - target: Mewnu
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: io.github.nimbusline.mewnu.uitests
+        GENERATE_INFOPLIST_FILE: YES
