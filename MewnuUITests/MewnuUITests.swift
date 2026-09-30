@@ -81,6 +81,8 @@ final class MewnuUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
         app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
         XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+        XCTAssertTrue(helpButton.isHittable)
+        XCTAssertTrue(["Help", "Hilfe"].contains(helpButton.label))
 
         app.buttons["calendarFilterButton"].click()
         XCTAssertTrue(app.staticTexts["calendarPickerTitle"].waitForExistence(timeout: 5))

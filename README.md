@@ -67,9 +67,9 @@ These native app views use **fictional sample calendars and events** on a fixed 
 
 ### Download and install
 
-**There is no published release yet.** You can currently [build Mewnu from source](#build-and-run). Signed releases will be available on [GitHub Releases](https://github.com/nimbusline/Mewnu/releases).
+Download the signed app from [GitHub Releases](https://github.com/nimbusline/Mewnu/releases/latest), or [build Mewnu from source](#build-and-run).
 
-Once a release is published:
+To install:
 
 1. Download `Mewnu-vX.Y.Z-macos.dmg` from GitHub Releases.
 2. Open the disk image and drag **Mewnu** to **Applications**.

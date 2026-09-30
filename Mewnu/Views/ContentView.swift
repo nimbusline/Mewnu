@@ -303,6 +303,7 @@ struct ContentView: View {
                         showingHelp = true
                     }
                 }
+                .keyboardShortcut(showingHelp ? .cancelAction : nil)
                 IconActionButton(symbol: "calendar", label: String(localized: "Open Calendar"),
                                  identifier: "openCalendarButton") {
                     model.openCalendar()
