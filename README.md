@@ -178,6 +178,8 @@ The coverage gate requires **95% line coverage in each listed core file**: `Cale
 
 Keep EventKit objects out of SwiftUI views. Event end dates are exclusive; use `Calendar` day boundaries instead of fixed 86,400-second arithmetic. Permission revocation clears displayed data, while a transient fetch failure retains the last successful data for the same month.
 
+The [architecture decision records](docs/adr/README.md) explain the product, data, UI, testing, and release choices. Their [implementation references and validation guide](docs/ARCHITECTURE-REFERENCES.md) connect these decisions to code, tests, and verification requirements. The [implementation guide](docs/IMPLEMENTATION.md) defines application behavior and acceptance criteria.
+
 ### Screenshots and artwork
 
 Regenerate the six README screenshots on macOS with Xcode selected:
@@ -192,7 +194,7 @@ The **Eis & Rost** artwork uses ice blue `#CEE8F0` and rust red `#A63925`. The m
 
 ### Contributions and releases
 
-Follow [CONTRIBUTING.md](CONTRIBUTING.md), keep English and German strings synchronized, and check keyboard navigation, VoiceOver labels, and resizing when changing the UI. Coding agents should also read [AGENTS.md](AGENTS.md).
+Follow [CONTRIBUTING.md](CONTRIBUTING.md), keep English and German strings synchronized, and check keyboard navigation, VoiceOver labels, and resizing when changing the UI.
 
 Use the [issue templates](https://github.com/nimbusline/Mewnu/issues/new/choose) for bugs and feature requests. Report security concerns privately as described in [SECURITY.md](SECURITY.md). The [Code of Conduct](CODE_OF_CONDUCT.md) applies to participation.
 
