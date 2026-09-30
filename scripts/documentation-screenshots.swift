@@ -63,7 +63,9 @@ private struct DocumentationScreenshots {
     static func main() {
         let app = NSApplication.shared
         app.setActivationPolicy(.prohibited)
-        app.appearance = NSAppearance(named: .aqua)
+        let appearance: NSAppearance.Name = ProcessInfo.processInfo.environment["MEWNU_SCREENSHOT_APPEARANCE"] == "dark"
+            ? .darkAqua : .aqua
+        app.appearance = NSAppearance(named: appearance)
         let output = URL(fileURLWithPath: CommandLine.arguments[1], isDirectory: true)
 
         Task { @MainActor in

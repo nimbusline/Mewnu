@@ -20,6 +20,12 @@ To inspect a new set without replacing the checked-in images:
 scripts/capture-screenshots.sh /tmp/mewnu-screenshot-review
 ```
 
+To check contrast in dark appearance without replacing the README images:
+
+```sh
+MEWNU_SCREENSHOT_APPEARANCE=dark scripts/capture-screenshots.sh /tmp/mewnu-dark-review
+```
+
 The script compiles the asset catalog and the current `Core/` and `Views/`
 Swift sources into a temporary documentation executable. It does not launch
 `MewnuApp`, instantiate `EventKitCalendarService`, request calendar permission,

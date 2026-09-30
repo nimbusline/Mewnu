@@ -46,7 +46,7 @@ struct ContentView: View {
             resizeHandle
         }
         .frame(width: MenuWindowSize.width, height: displayedHeight)
-        .background(.regularMaterial)
+        .background(Color(nsColor: .windowBackgroundColor))
         .task { await model.activate() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             Task { await model.refresh() }

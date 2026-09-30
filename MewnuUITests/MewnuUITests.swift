@@ -149,7 +149,9 @@ final class MewnuUITests: XCTestCase {
         app.launchArguments.append("-ui-testing")
         app.launch()
         let statusItem = openMenu(app)
-        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+        let monthTitle = app.staticTexts["monthTitle"]
+        if !monthTitle.waitForExistence(timeout: 5) { statusItem.click() }
+        XCTAssertTrue(monthTitle.waitForExistence(timeout: 5))
         app.buttons["nextMonthButton"].click()
         app.buttons["todayButton"].click()
         app.buttons["calendarFilterButton"].click()

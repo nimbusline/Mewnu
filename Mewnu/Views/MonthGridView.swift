@@ -47,7 +47,7 @@ struct MonthGridView: View {
             VStack(spacing: 2) {
                 Text("\(calendar.component(.day, from: date))")
                     .font(.system(size: 13, weight: isSelected ? .bold : (isToday ? .semibold : .regular)))
-                    .foregroundStyle(isSelected ? .white : (isToday ? Color.accentColor : (isCurrentMonth ? .primary : .secondary)))
+                    .foregroundStyle(isSelected ? .white : (isCurrentMonth ? .primary : .secondary))
                 HStack(spacing: 2) {
                     ForEach(indicators.dots) { item in
                         Circle()
