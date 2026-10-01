@@ -5,7 +5,7 @@ source "$root/scripts/toolchain/sparkle.env"
 install_dir="$root/build/tools/sparkle-$MEWNU_SPARKLE_VERSION"
 task_tmp="$(mktemp -d)"
 trap 'rm -rf "$task_tmp"' EXIT
-curl --fail --location --retry 3 --proto '=https' --tlsv1.2 \
+curl --fail --location --retry 5 --retry-all-errors --retry-delay 2 --proto '=https' --tlsv1.2 \
   "https://github.com/sparkle-project/Sparkle/releases/download/$MEWNU_SPARKLE_VERSION/Sparkle-$MEWNU_SPARKLE_VERSION.tar.xz" \
   -o "$task_tmp/sparkle.tar.xz"
 (cd "$task_tmp" && echo "$MEWNU_SPARKLE_SHA256  sparkle.tar.xz" | shasum -a 256 -c -)
