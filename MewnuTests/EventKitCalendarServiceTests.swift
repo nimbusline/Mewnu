@@ -162,6 +162,49 @@ final class EventKitCalendarServiceTests: XCTestCase {
         XCTAssertEqual(first, EventIdentity.make(calendarID: "work", eventID: "series", start: start))
     }
 
+    func testZeroDurationTimedEventIsRetained() async throws {
+        let store = FakeEventStore()
+        let calendar = EKCalendar(for: .event, eventStore: store)
+        calendar.title = "Synthetic"
+        store.fakeCalendars = [calendar]
+        let start = Date(timeIntervalSince1970: 1_800_000_000)
+        let event = EKEvent(eventStore: store)
+        event.calendar = calendar
+        event.title = "Point event"
+        event.startDate = start
+        event.endDate = start
+        store.fakeEvents = [event]
+        let snapshot = try await EventKitCalendarService(store: store, authorizationStatus: { .fullAccess })
+            .load(from: start, to: start.addingTimeInterval(3600))
+        XCTAssertEqual(snapshot.events.count, 1)
+        XCTAssertEqual(snapshot.events.first?.start, start)
+        XCTAssertEqual(snapshot.events.first?.end, start)
+    }
+
+    func testZeroDurationAllDayIsRejectedSeparatelyFromNegativeDuration() {
+        let day = Date(timeIntervalSince1970: 1_800_000_000)
+        // EKEvent setters normalize all-day end dates; test the raw import rule directly.
+        XCTAssertFalse(EventKitCalendarService.isValidInterval(start: day, end: day, isAllDay: true))
+        XCTAssertTrue(EventKitCalendarService.isValidInterval(start: day, end: day, isAllDay: false))
+        for allDay in [true, false] {
+            XCTAssertFalse(EventKitCalendarService.isValidInterval(start: day, end: day.addingTimeInterval(-1), isAllDay: allDay))
+        }
+    }
+
+    func testMissingDatesAreRejected() async throws {
+        let store = FakeEventStore()
+        let calendar = EKCalendar(for: .event, eventStore: store)
+        calendar.title = "Synthetic"
+        store.fakeCalendars = [calendar]
+        let missing = EKEvent(eventStore: store)
+        missing.calendar = calendar
+        store.fakeEvents = [missing]
+        let day = Date(timeIntervalSince1970: 1_800_000_000)
+        let snapshot = try await EventKitCalendarService(store: store, authorizationStatus: { .fullAccess })
+            .load(from: day, to: day.addingTimeInterval(86400))
+        XCTAssertTrue(snapshot.events.isEmpty)
+    }
+
     func testEmptyStoreSkipsQueryAndMalformedEventsAreIgnored() async throws {
         let store = FakeEventStore()
         let service = EventKitCalendarService(store: store, authorizationStatus: { .fullAccess })
@@ -177,7 +220,7 @@ final class EventKitCalendarServiceTests: XCTestCase {
         let invalid = EKEvent(eventStore: store)
         invalid.calendar = calendar
         invalid.startDate = start
-        invalid.endDate = start
+        invalid.endDate = start.addingTimeInterval(-1)
         store.fakeEvents = [invalid]
         let loaded = try await service.load(from: start, to: end)
         XCTAssertTrue(loaded.events.isEmpty)

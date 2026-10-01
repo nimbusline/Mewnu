@@ -17,12 +17,14 @@ Click the cat to see your month, browse a day's agenda, and read event details w
 ### What you can do
 
 - **See your month at a glance.** Colored dots show which calendars have events on each day. Select a date to see its agenda, or choose **Today** to return to the current day.
-- **Read event details.** Select an event to see its time, calendar, location, and notes. All-day, overnight, and multiday events are supported.
+- **Read complete event details.** Select an event to scroll its full title, time, calendar, location, and notes. All-day, overnight, multiday, and timed point events are supported.
 - **Choose your calendars.** Use the filter button to show work, personal, family, or other calendars already available in Apple Calendar. Your selection is remembered.
 - **Make room for a busy day.** Drag the bottom handle to make the event list taller. Mewnu remembers the window height.
+- **Start with your day.** Enable **Launch at login** in Help if you want Mewnu to start when you sign in. macOS manages the setting; it is off until you enable it.
+- **Find updates.** Help shows the installed version and opens the latest GitHub release in your browser on request. Updates are downloaded and installed manually.
 - **Keep editing in Apple Calendar.** The calendar icon at the bottom opens Apple's app, where you can create or change events. Mewnu itself only reads them.
 
-Mewnu lives in the menu bar: there is no Dock icon, separate main window, or Mewnu account to set up. It follows your system's date, time, and week settings, and supports keyboard navigation and VoiceOver.
+Mewnu lives in the menu bar: there is no Dock icon, separate main window, or Mewnu account to set up. It follows your system's date, time, and week settings, and provides keyboard controls and VoiceOver labels; interaction verification is described in the [checklist](docs/INTERACTION-VALIDATION.md).
 
 ### Screenshots
 
@@ -82,6 +84,10 @@ Release downloads include a `.sha256` checksum. To verify a download, put both f
 shasum -a 256 -c Mewnu-vX.Y.Z-macos.dmg.sha256
 ```
 
+### Updating
+
+Open **Help → Open latest release**, compare the version on GitHub with the installed version shown in Help, and download the newer signed DMG. Quit Mewnu, drag the new app to Applications, confirm replacement, and reopen it. Calendar filters and window height are retained. Mewnu does not check for or install updates in the background.
+
 ### Calendar access and privacy
 
 Mewnu reads the calendars already configured in Apple Calendar; you do not sign in to your calendar accounts again. Account setup and synchronization stay with macOS and Apple Calendar.
@@ -95,14 +101,14 @@ If access was denied or revoked, open **System Settings → Privacy & Security �
 | Action | Control |
 | --- | --- |
 | Open the calendar | Click the cat in the menu bar |
-| Move between months | Use the left and right arrows |
-| Return to the current day | Select **Today** |
+| Move between months | Use the left and right arrows or **⌘← / ⌘→** |
+| Return to the current day | Select **Today** or **⌘T** |
 | Show a day's events | Select a date in the month grid |
-| Show or hide calendars | Use the filter button in the header |
+| Show or hide calendars | Use the filter button in the header or **⇧⌘F** |
 | Read an event | Select its row in the agenda |
 | Return from details or help | Use the close/back button or **Escape** |
 | Resize the agenda | Drag the handle at the bottom of the window |
-| Find in-app help | Select **?** in the footer |
+| Find in-app help | Select **?** in the footer or **⇧⌘H** |
 | Create or edit events | Select the calendar icon at the bottom, then edit in Apple Calendar |
 | Exit Mewnu | Select the power icon at the bottom of the menu |
 
@@ -113,7 +119,7 @@ If an event seems to be missing, check the selected day and calendar filter, the
 ### Requirements
 
 - macOS 26 or newer and **Xcode 27+**, selected as the active developer tools.
-- [XcodeGen](https://github.com/yonaskolb/XcodeGen) 2.46.0 or newer to generate the project.
+- [XcodeGen](https://github.com/yonaskolb/XcodeGen) exactly 2.46.0 to generate the project.
 - Python 3 for the coverage check and optional artwork generation.
 
 Mewnu uses SwiftUI, AppKit, and EventKit. It has **no third-party runtime dependencies** and requires no backend or API keys.
@@ -123,8 +129,8 @@ Mewnu uses SwiftUI, AppKit, and EventKit. It has **no third-party runtime depend
 ```sh
 git clone https://github.com/nimbusline/Mewnu.git
 cd Mewnu
-brew install xcodegen
-xcodegen generate
+scripts/install-xcodegen.sh
+scripts/generate-project.sh
 xcodebuild -project Mewnu.xcodeproj -scheme Mewnu \
   -destination 'platform=macOS' -derivedDataPath build/DerivedData \
   CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES build
@@ -133,7 +139,9 @@ open build/DerivedData/Build/Products/Debug/Mewnu.app
 
 These commands use ad-hoc signing for local development. You can also open `Mewnu.xcodeproj` in Xcode and select your own development team for automatic signing.
 
-`project.yml` is the source of truth for the checked-in Xcode project. Run `xcodegen generate` after changing source files or project settings, and include any generated project changes with your contribution.
+`project.yml` is the source of truth for the checked-in Xcode project. Run `scripts/generate-project.sh` after changing source files or project settings, and include any generated project changes with your contribution.
+
+The installer verifies the pinned upstream archive checksum and includes XcodeGen’s setting presets. The pin and checksum live in `scripts/toolchain/xcodegen.env`. CI runs `scripts/generate-project.sh --check` and rejects changed, deleted, or untracked generated project output; ignored Xcode user state is excluded. To upgrade the tool, review the pin, checksum, regenerated project, and build/test results together. Run `scripts/validate-entitlements.sh` for independent offline XML and plist checks.
 
 ### Tests and coverage
 

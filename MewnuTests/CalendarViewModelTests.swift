@@ -73,6 +73,28 @@ final class CalendarViewModelTests: XCTestCase {
         XCTAssertFalse(restored.isVisible("two"))
     }
 
+    func testPointEventFilteringAlsoUpdatesDayMarkers() async {
+        let service = FakeService()
+        let now = Date()
+        service.snapshot = CalendarSnapshot(
+            calendars: [CalendarInfo(id: "point", title: "Point", color: .blue)],
+            events: [EventInfo(id: "point", calendarID: "point", title: "Point", start: now,
+                               end: now, isAllDay: false, location: nil, notes: nil)]
+        )
+        let suite = "PointEvents.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suite)!
+        defer { defaults.removePersistentDomain(forName: suite) }
+        let model = CalendarViewModel(service: service, defaults: defaults, now: { now })
+        await model.activate()
+        XCTAssertEqual(model.selectedDayEvents.map(\.id), ["point"])
+        XCTAssertEqual(model.calendarMarkers(on: now).map(\.id), ["point"])
+        model.setVisible(false, calendarID: "point")
+        XCTAssertTrue(model.selectedDayEvents.isEmpty)
+        XCTAssertTrue(model.calendarMarkers(on: now).isEmpty)
+        model.setVisible(true, calendarID: "point")
+        XCTAssertTrue(model.hasEvents(on: now))
+    }
+
     func testStoreChangeReloadsAndDeniedAccessClearsEvents() async {
         let service = FakeService()
         let now = Date()

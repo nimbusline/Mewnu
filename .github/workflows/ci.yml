@@ -17,9 +17,13 @@ jobs:
         with:
           persist-credentials: false
       - name: Install XcodeGen
-        run: brew install xcodegen
-      - name: Generate project
-        run: xcodegen generate
+        run: scripts/install-xcodegen.sh
+      - name: Test development safeguards
+        run: python3 scripts/tests/test-development-checks.py
+      - name: Validate entitlements
+        run: scripts/validate-entitlements.sh
+      - name: Generate project and reject drift
+        run: scripts/generate-project.sh --check
       - name: Unit tests with coverage
         run: xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' -enableCodeCoverage YES -resultBundlePath "$RUNNER_TEMP/MewnuUnitTests.xcresult" CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES '-only-testing:MewnuTests' test
       - name: Check core coverage

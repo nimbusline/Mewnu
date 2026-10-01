@@ -37,3 +37,16 @@
 "Untitled event" = "Termin ohne Titel";
 "Use the filter button to choose which calendars appear." = "Wähle über den Filter aus, welche Kalender angezeigt werden.";
 "calendar_open_error" = "Apple Kalender wurde nicht gefunden.";
+"Event details" = "Termindetails";
+"Launch at login" = "Beim Anmelden starten";
+"Launch at login is off." = "Autostart ist ausgeschaltet.";
+"Launch at login is on." = "Autostart ist eingeschaltet.";
+"Approve Mewnu in System Settings → General → Login Items & Extensions." = "Erlaube Mewnu in Systemeinstellungen → Allgemein → Anmeldeobjekte & Erweiterungen.";
+"Launch at login is unavailable. Install Mewnu in Applications and try again." = "Autostart ist nicht verfügbar. Installiere Mewnu im Ordner Programme und versuche es erneut.";
+"Could not change launch at login. Check Login Items in System Settings and try again." = "Autostart konnte nicht geändert werden. Prüfe die Anmeldeobjekte in den Systemeinstellungen und versuche es erneut.";
+"Open Login Item Settings" = "Anmeldeobjekte öffnen";
+"Installed version: %@" = "Installierte Version: %@";
+"Open latest release" = "Neueste Veröffentlichung öffnen";
+"Compare the installed version with the release page, then download and replace Mewnu manually." = "Vergleiche die installierte Version mit der Release-Seite. Lade anschließend die neue Version herunter und ersetze Mewnu manuell.";
+"Could not open the release page. Open github.com/nimbusline/Mewnu/releases in your browser." = "Die Release-Seite konnte nicht geöffnet werden. Öffne github.com/nimbusline/Mewnu/releases in deinem Browser.";
+"Keyboard: ⌘T Today · ⌘←/⌘→ Months · ⇧⌘F Calendars · ⇧⌘H Help · Escape Back" = "Tastatur: ⌘T Heute · ⌘←/⌘→ Monate · ⇧⌘F Kalender · ⇧⌘H Hilfe · Escape Zurück";

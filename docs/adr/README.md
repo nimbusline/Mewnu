@@ -1,8 +1,10 @@
 # Architecture Decision Records
 
-These 29 ADRs document Mewnu's product scope, architecture, presentation, test strategy, and release process. Each record explains the problem, selected solution, viable alternatives, consequences, and implementation criteria.
+These 37 ADRs document Mewnu's product scope, architecture, presentation, test strategy, and release process. Each record explains the problem, selected or proposed solution, viable alternatives, consequences, and implementation criteria.
 
-The ADRs use the present tense as implementation guidance. `accepted` identifies a decision that applies to Mewnu. The documentation date records this edition; it does not state when a decision was originally made. These records do not establish a historical meeting or approval timeline.
+The ADRs use the present tense as implementation guidance. `accepted` identifies a decision that applies to Mewnu. The documentation date records this edition; it does not state when a decision was originally made. Documentation dates alone do not establish a historical meeting or approval timeline; an explicit decision date records acceptance where known.
+
+`proposed` records describe changes under review, not implemented behavior or completed validation. ADRs 0030–0037 address the review of event durations, long content, interaction verification, reproducible project generation, repository corrections, and everyday convenience. Security support and entitlement syntax, and launch at login and updates, have separate records because each can be implemented independently. ADRs 0030–0037 were explicitly accepted on 2026-10-01. Their implementation and local verification are described in [the validation record](../ADR-IMPLEMENTATION-VALIDATION.md); required manual and release checks remain explicitly unverified. ADR-0030 updates the duration rule in ADR-0008; ADR-0033 extends ADR-0021 with exact generator pinning and drift checks. Other existing decisions continue to apply.
 
 The scope covers significant application and development decisions. Variable names and one-time administrative actions do not require separate ADRs.
 
@@ -37,6 +39,14 @@ The scope covers significant application and development decisions. Variable nam
 | [0027](0027-workflow-dependencies.md) | Pin GitHub Actions to commit SHAs and maintain them with Dependabot | accepted | 2026-09-30 |
 | [0028](0028-calendar-title-decoding.md) | Decode a bounded set of entities in calendar and event titles | accepted | 2026-09-30 |
 | [0029](0029-icon-action-layout.md) | Place Help in the footer and use consistent icon buttons | accepted | 2026-09-30 |
+| [0030](0030-zero-duration-events.md) | Treat zero-duration timed events separately from invalid intervals | accepted | 2026-10-01 |
+| [0031](0031-long-content-presentation.md) | Make complete event content and important errors readable | accepted | 2026-10-01 |
+| [0032](0032-interaction-validation.md) | Validate complete keyboard, VoiceOver, and resize interactions | accepted | 2026-10-01 |
+| [0033](0033-reproducible-project-generation.md) | Pin XcodeGen and reject generated-project drift | accepted | 2026-10-01 |
+| [0034](0034-security-support-policy.md) | Keep security support policy aligned with published releases | accepted | 2026-10-01 |
+| [0035](0035-entitlements-xml-validation.md) | Use well-formed entitlement XML and validate it independently | accepted | 2026-10-01 |
+| [0036](0036-launch-at-login.md) | Offer an optional launch-at-login setting | accepted | 2026-10-01 |
+| [0037](0037-manual-update-path.md) | Offer a browser-based path to release updates | accepted | 2026-10-01 |
 
 ## Using these records
 

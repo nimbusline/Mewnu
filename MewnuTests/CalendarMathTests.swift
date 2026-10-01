@@ -107,6 +107,30 @@ final class CalendarMathTests: XCTestCase {
         XCTAssertNil(index[date(2026, 10, 19)])
     }
 
+    func testPointEventsAgreeAcrossLookupPathsAtGridAndDaylightSavingBoundaries() {
+        for month in [3, 10] {
+            let grid = CalendarMath.monthGrid(containing: date(2026, month, 15), calendar: calendar)
+            let end = calendar.date(byAdding: .day, value: 1, to: grid.last!)!
+            let dstDay = date(2026, month, month == 3 ? 29 : 25)
+            let values = [
+                event("first", grid[0], grid[0]),
+                event("last", grid.last!, grid.last!),
+                event("dst-midnight", dstDay, dstDay),
+                event("dst-late", dstDay.addingTimeInterval(3600), dstDay.addingTimeInterval(3600)),
+                event("outside", end, end),
+                event("negative", dstDay.addingTimeInterval(3600), dstDay),
+                event("all-day-zero", dstDay, dstDay, allDay: true)
+            ]
+            let index = CalendarMath.dayIndex(for: grid, events: values, calendar: calendar)
+            for day in grid {
+                XCTAssertEqual(index[day]?.map(\.id) ?? [],
+                               CalendarMath.events(on: day, from: values, calendar: calendar).map(\.id))
+            }
+            XCTAssertEqual(index[dstDay]?.map(\.id), ["dst-midnight", "dst-late"])
+            XCTAssertFalse(index.values.flatMap { $0 }.contains { ["outside", "negative", "all-day-zero"].contains($0.id) })
+        }
+    }
+
     func testSameDayUsesCalendarBoundary() {
         XCTAssertTrue(CalendarMath.sameDay(date(2026, 9, 29, 1), date(2026, 9, 29, 23), calendar: calendar))
         XCTAssertFalse(CalendarMath.sameDay(date(2026, 9, 29, 23), date(2026, 9, 30), calendar: calendar))

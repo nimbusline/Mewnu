@@ -4,6 +4,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var model: CalendarViewModel
     @ObservedObject var windowSize: MenuWindowSize
+    @ObservedObject var preferences: AppPreferences = AppPreferences()
     @Environment(\.locale) private var locale
     @Environment(\.calendar) private var calendar
     @State private var showingHelp = false
@@ -17,6 +18,11 @@ struct ContentView: View {
 
     private var displayedHeight: CGFloat {
         resizePreviewHeight ?? windowSize.height(maximum: maximumWindowHeight)
+    }
+
+    private var displayedError: String? {
+        let messages = [preferences.errorMessage, model.errorMessage].compactMap { $0 }
+        return messages.isEmpty ? nil : messages.joined(separator: "\n\n")
     }
 
     private var helpButtonLabel: String {
@@ -41,14 +47,42 @@ struct ContentView: View {
             } else {
                 permissionContent
             }
+            if let error = displayedError {
+                Divider()
+                ScrollView {
+                    Text(error)
+                        .font(.caption)
+                        .foregroundStyle(.red)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.horizontal, 18)
+                        .padding(.vertical, 8)
+                        .accessibilityLabel(error)
+                        .accessibilityIdentifier("errorMessage")
+                }
+                .frame(minHeight: 32, maxHeight: 90)
+                .clipped()
+            }
             Divider()
             footer
             resizeHandle
         }
         .frame(width: MenuWindowSize.width, height: displayedHeight)
         .background(Color(nsColor: .windowBackgroundColor))
-        .task { await model.activate() }
+        .background {
+            if showingHelp || model.showingCalendars {
+                Button("Back") {
+                    showingHelp = false
+                    model.showingCalendars = false
+                }
+                .keyboardShortcut(.cancelAction)
+                .hidden()
+                .accessibilityHidden(true)
+            }
+        }
+        .task { preferences.refresh(); await model.activate() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
+            preferences.refresh()
             Task { await model.refresh() }
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
@@ -73,7 +107,7 @@ struct ContentView: View {
                 .frame(width: 22, height: 22)
                 .foregroundStyle(.primary)
                 .accessibilityHidden(true)
-            Text("Mewnu").font(.headline)
+            Text("Mewnu").font(.headline).accessibilityIdentifier("appTitle")
             Spacer()
             if model.access == .allowed && model.selectedEvent == nil && !showingHelp {
                 IconActionButton(
@@ -83,6 +117,7 @@ struct ContentView: View {
                 ) {
                     model.showingCalendars.toggle()
                 }
+                .keyboardShortcut("f", modifiers: [.command, .shift])
             }
         }
         .frame(minHeight: 28)
@@ -101,16 +136,19 @@ struct ContentView: View {
                 Button { Task { await model.goToToday() } } label: { Text("Today") }
                     .frame(minHeight: 28)
                     .accessibilityIdentifier("todayButton")
+                    .keyboardShortcut("t", modifiers: .command)
                 Button { Task { await model.moveMonth(-1) } } label: {
                     Image(systemName: "chevron.left").frame(width: 28, height: 28).contentShape(Rectangle())
                 }
                     .accessibilityLabel("Previous month")
                     .accessibilityIdentifier("previousMonthButton")
+                    .keyboardShortcut(.leftArrow, modifiers: .command)
                 Button { Task { await model.moveMonth(1) } } label: {
                     Image(systemName: "chevron.right").frame(width: 28, height: 28).contentShape(Rectangle())
                 }
                     .accessibilityLabel("Next month")
                     .accessibilityIdentifier("nextMonthButton")
+                    .keyboardShortcut(.rightArrow, modifiers: .command)
             }
             .buttonStyle(.plain)
             .padding(.horizontal, 18)
@@ -218,11 +256,35 @@ struct ContentView: View {
                       systemImage: "arrow.up.forward.app")
                 Text("If calendar access was denied, enable Mewnu in System Settings → Privacy & Security → Calendars.")
                     .foregroundStyle(.secondary)
+                Text("Keyboard: ⌘T Today · ⌘←/⌘→ Months · ⇧⌘F Calendars · ⇧⌘H Help · Escape Back")
+                    .font(.caption).foregroundStyle(.secondary)
+                Divider()
+                Toggle("Launch at login", isOn: Binding(
+                    get: { preferences.loginItemState.isRegistered },
+                    set: { preferences.setLaunchAtLogin($0) }
+                ))
+                .toggleStyle(.checkbox)
+                .accessibilityIdentifier("launchAtLoginToggle")
+                Text(preferences.loginItemState.message)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+                    .accessibilityLabel(preferences.loginItemState.message)
+                    .accessibilityIdentifier("loginItemStatus")
+                Button("Open Login Item Settings") { preferences.openLoginItemSettings() }
+                    .accessibilityIdentifier("loginItemSettingsButton")
+                Text(String(format: String(localized: "Installed version: %@"), preferences.installedVersion))
+                    .accessibilityIdentifier("installedVersion")
+                Button("Open latest release") { preferences.openLatestRelease() }
+                    .accessibilityIdentifier("latestReleaseButton")
+                Text("Compare the installed version with the release page, then download and replace Mewnu manually.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(18)
         }
-        .frame(maxHeight: .infinity)
+        .frame(minHeight: 0, maxHeight: .infinity)
+        .clipped()
+        .accessibilityIdentifier("helpScroll")
     }
 
     private func eventRowLabel(_ event: EventInfo) -> String {
@@ -283,11 +345,6 @@ struct ContentView: View {
 
     private var footer: some View {
         HStack(spacing: 8) {
-            if let error = model.errorMessage {
-                Text(error).font(.caption).foregroundStyle(.red).lineLimit(1)
-                    .help(error)
-                    .layoutPriority(-1)
-            }
             Spacer(minLength: 0)
             HStack(spacing: 8) {
                 IconActionButton(
@@ -303,7 +360,7 @@ struct ContentView: View {
                         showingHelp = true
                     }
                 }
-                .keyboardShortcut(showingHelp ? .cancelAction : nil)
+                .keyboardShortcut("h", modifiers: [.command, .shift])
                 IconActionButton(symbol: "calendar", label: String(localized: "Open Calendar"),
                                  identifier: "openCalendarButton") {
                     model.openCalendar()
@@ -421,32 +478,45 @@ struct EventDetailView: View {
     let onClose: () -> Void
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
+        VStack(alignment: .leading, spacing: 0) {
             HStack {
-                Circle().fill(color).frame(width: 10, height: 10)
-                    .accessibilityHidden(true)
-                Text(event.title.isEmpty ? String(localized: "Untitled event") : event.title)
-                    .font(.headline)
+                Text("Event details").font(.headline)
                     .accessibilityAddTraits(.isHeader)
                 Spacer()
                 Button(action: onClose) {
                     Image(systemName: "xmark").frame(width: 28, height: 28).contentShape(Rectangle())
                 }
-                    .buttonStyle(.plain)
-                    .keyboardShortcut(.cancelAction)
-                    .accessibilityLabel("Close")
-                    .accessibilityIdentifier("closeEventDetailsButton")
+                .buttonStyle(.borderless)
+                .keyboardShortcut(.cancelAction)
+                .accessibilityLabel("Close")
+                .accessibilityIdentifier("closeEventDetailsButton")
             }
-            Text(calendarName).font(.subheadline).foregroundStyle(.secondary)
-            Text(EventDisplayText.detailTime(for: event, calendar: calendar, locale: locale))
-            if let location = event.location, !location.isEmpty {
-                Label(location, systemImage: "mappin.and.ellipse")
+            .padding(.bottom, 14)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 14) {
+                    Text(event.title.isEmpty ? String(localized: "Untitled event") : event.title)
+                        .font(.headline)
+                        .accessibilityAddTraits(.isHeader)
+                        .accessibilityIdentifier("eventDetailTitle")
+                    Label { Text(calendarName) } icon: {
+                        Circle().fill(color).frame(width: 10, height: 10).accessibilityHidden(true)
+                    }
+                    .font(.subheadline).foregroundStyle(.secondary)
+                    Text(EventDisplayText.detailTime(for: event, calendar: calendar, locale: locale))
+                    if let location = event.location, !location.isEmpty {
+                        Label(location, systemImage: "mappin.and.ellipse")
+                            .accessibilityIdentifier("eventDetailLocation")
+                    }
+                    if let notes = event.notes, !notes.isEmpty {
+                        Text(notes).accessibilityIdentifier("eventDetailNotes")
+                    }
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
-            if let notes = event.notes, !notes.isEmpty {
-                ScrollView { Text(notes).frame(maxWidth: .infinity, alignment: .leading) }
-                    .frame(maxHeight: 120)
-            }
-            Spacer()
+            .frame(minHeight: 0, maxHeight: .infinity)
+            .clipped()
+            .accessibilityIdentifier("eventDetailScroll")
         }
         .padding(18)
         .frame(maxWidth: .infinity, maxHeight: .infinity)

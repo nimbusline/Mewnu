@@ -11,7 +11,7 @@ enum CalendarMath {
 
     static func events(on date: Date, from events: [EventInfo], calendar: Calendar) -> [EventInfo] {
         guard let day = calendar.dateInterval(of: .day, for: date) else { return [] }
-        return events.filter { $0.start < day.end && $0.end > day.start }
+        return events.filter { overlaps($0, day: day) }
             .sorted(by: eventOrder)
     }
 
@@ -22,7 +22,14 @@ enum CalendarMath {
         let gridStart = calendar.startOfDay(for: first)
         var index: [Date: [EventInfo]] = [:]
 
-        for event in events where event.start < gridEnd && event.end > gridStart && event.end > event.start {
+        for event in events {
+            if event.start == event.end && !event.isAllDay {
+                if event.start >= gridStart && event.start < gridEnd {
+                    index[calendar.startOfDay(for: event.start), default: []].append(event)
+                }
+                continue
+            }
+            guard event.end > event.start, event.start < gridEnd, event.end > gridStart else { continue }
             var dayStart = calendar.startOfDay(for: max(event.start, gridStart))
             while dayStart < gridEnd && dayStart < event.end {
                 guard let day = calendar.dateInterval(of: .day, for: dayStart),
@@ -37,6 +44,13 @@ enum CalendarMath {
             index[day]?.sort(by: eventOrder)
         }
         return index
+    }
+
+    private static func overlaps(_ event: EventInfo, day: DateInterval) -> Bool {
+        if event.start == event.end {
+            return !event.isAllDay && event.start >= day.start && event.start < day.end
+        }
+        return event.end > event.start && event.start < day.end && event.end > day.start
     }
 
     private static func eventOrder(_ lhs: EventInfo, _ rhs: EventInfo) -> Bool {

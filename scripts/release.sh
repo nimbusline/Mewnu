@@ -30,7 +30,8 @@ fi
 version=$1
 root=${0:A:h:h}
 cd "$root"
-xcodegen generate
+scripts/validate-entitlements.sh
+scripts/generate-project.sh --check
 xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES test
 xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -configuration Release -destination 'platform=macOS' -derivedDataPath "$root/build/DerivedData" CODE_SIGNING_ALLOWED=NO MARKETING_VERSION="$version" ARCHS='arm64 x86_64' ONLY_ACTIVE_ARCH=NO build
 

@@ -107,6 +107,10 @@ final class EventKitCalendarService: CalendarService {
         return snapshot
     }
 
+    nonisolated static func isValidInterval(start: Date, end: Date, isAllDay: Bool) -> Bool {
+        end > start || (end == start && !isAllDay)
+    }
+
     nonisolated private static func makeSnapshot(store: EKEventStore, from start: Date, to end: Date) -> CalendarSnapshot {
         let calendars = store.calendars(for: .event)
         guard !calendars.isEmpty else { return CalendarSnapshot(calendars: [], events: []) }
@@ -121,7 +125,7 @@ final class EventKitCalendarService: CalendarService {
                 guard let calendar = event.calendar,
                       let startDate = event.startDate,
                       let endDate = event.endDate,
-                      endDate > startDate else { return nil }
+                      isValidInterval(start: startDate, end: endDate, isAllDay: event.isAllDay) else { return nil }
                 return EventInfo(
                     id: EventIdentity.make(calendarID: calendar.calendarIdentifier,
                                            eventID: event.eventIdentifier ?? event.calendarItemIdentifier,

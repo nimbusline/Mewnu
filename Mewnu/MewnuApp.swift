@@ -4,20 +4,25 @@ import SwiftUI
 struct MewnuApp: App {
     @StateObject private var model: CalendarViewModel
     @StateObject private var windowSize: MenuWindowSize
+    @StateObject private var preferences: AppPreferences
 
     init() {
         let isUITesting = ProcessInfo.processInfo.arguments.contains("-ui-testing")
         let service: CalendarService = isUITesting
             ? DemoCalendarService(
                 access: ProcessInfo.processInfo.arguments.contains("-ui-testing-denied") ? .denied : .allowed,
-                manyCalendars: ProcessInfo.processInfo.arguments.contains("-ui-testing-many-calendars")
+                manyCalendars: ProcessInfo.processInfo.arguments.contains("-ui-testing-many-calendars"),
+                longContent: ProcessInfo.processInfo.arguments.contains("-ui-testing-long-content"),
+                failLoad: ProcessInfo.processInfo.arguments.contains("-ui-testing-load-error")
             )
             : EventKitCalendarService()
         let defaults: UserDefaults
         if isUITesting {
             let suite = "io.github.nimbusline.mewnu.ui-testing"
             defaults = UserDefaults(suiteName: suite)!
-            defaults.removePersistentDomain(forName: suite)
+            if !ProcessInfo.processInfo.arguments.contains("-ui-testing-preserve-preferences") {
+                defaults.removePersistentDomain(forName: suite)
+            }
         } else {
             defaults = .standard
         }
@@ -27,11 +32,13 @@ struct MewnuApp: App {
             windowSize.saveHeight(MenuWindowSize.minimumHeight, maximum: MenuWindowSize.maximumHeight)
         }
         _windowSize = StateObject(wrappedValue: windowSize)
+        _preferences = StateObject(wrappedValue: AppPreferences(
+            system: isUITesting ? DemoAppPreferencesSystem() : NativeAppPreferencesSystem()))
     }
 
     var body: some Scene {
         MenuBarExtra {
-            ContentView(model: model, windowSize: windowSize)
+            ContentView(model: model, windowSize: windowSize, preferences: preferences)
         } label: {
             Image("MenuIcon").renderingMode(.template).accessibilityLabel("Mewnu")
         }
@@ -44,12 +51,21 @@ private final class DemoCalendarService: CalendarService {
     var onChange: (() -> Void)?
     let access: CalendarAccess
     let manyCalendars: Bool
-    init(access: CalendarAccess, manyCalendars: Bool) {
+    let longContent: Bool
+    let failLoad: Bool
+    init(access: CalendarAccess, manyCalendars: Bool, longContent: Bool, failLoad: Bool) {
         self.access = access
         self.manyCalendars = manyCalendars
+        self.longContent = longContent
+        self.failLoad = failLoad
     }
     func requestAccess() async -> CalendarAccess { access }
     func load(from start: Date, to end: Date) async throws -> CalendarSnapshot {
+        if failLoad {
+            throw NSError(domain: "Synthetic", code: 1, userInfo: [NSLocalizedDescriptionKey:
+                String(repeating: "Synthetischer Ladefehler mit ausführlichem Hinweis zur Wiederherstellung. ", count: 6)
+                + "Ende des Hinweises"])
+        }
         let date = Date()
         if manyCalendars {
             let colors: [Color] = [.red, .orange, .yellow, .green, .blue, .purple]
@@ -70,9 +86,10 @@ private final class DemoCalendarService: CalendarService {
                 CalendarInfo(id: "long", title: "A much longer sample calendar", color: .blue),
                 CalendarInfo(id: "third", title: "Third", color: .green)
             ],
-            events: [EventInfo(id: "demo-1", calendarID: "demo", title: "Sample event", start: date,
+            events: [EventInfo(id: "demo-1", calendarID: "demo", title: longContent ? String(repeating: "Langfristige Projektabstimmung mit allen Beteiligten ", count: 8) : "Sample event", start: date,
                                end: date.addingTimeInterval(3600), isAllDay: false,
-                               location: "Example location", notes: "Example notes")]
+                               location: longContent ? "Konferenzzentrum\n" + String(repeating: "Langer Standort mit Anreisebeschreibung ", count: 8) : "Example location",
+                               notes: longContent ? String(repeating: "Ausführliche synthetische Besprechungsnotizen.\n\n", count: 40) + String(repeating: "Synthetisch", count: 80) + "\nEnde der Notizen" : "Example notes")]
         )
     }
 }

@@ -18,9 +18,11 @@ Add them in **Repository Settings → Secrets and variables → Actions**. Use t
 
 After configuring secrets, run **Actions → Signed macOS release → Run workflow** once and inspect the artifact. For a release, update `MARKETING_VERSION` in `project.yml`, merge to `main`, push a matching tag (for example `v1.0.0`), and let the workflow publish the assets.
 
+Before packaging, run `scripts/install-xcodegen.sh`. CI and the local release script validate entitlement XML/plist syntax and regenerate with the pinned tool, rejecting project drift. Follow [the interaction checklist](docs/INTERACTION-VALIDATION.md), including actual dragging, VoiceOver, login on a test account, and manual app replacement. Record unperformed checks as unverified.
+
 ## Local alternative
 
-Release from a Mac with Xcode 27+, XcodeGen 2.46.0 or newer, a Developer ID Application certificate in the keychain, and an Apple Developer account configured for notarization. On the maintainer's Mac, Mewnu uses the same Developer ID certificate and Team ID as WhisperM by default.
+Release from a Mac with Xcode 27+, XcodeGen 2.46.0 (pinned), a Developer ID Application certificate in the keychain, and an Apple Developer account configured for notarization. On the maintainer's Mac, Mewnu uses the same Developer ID certificate and Team ID as WhisperM by default.
 
 To create a local notarytool profile, generate an app-specific password at [Apple Account](https://account.apple.com/) under **Sign-In and Security → App-Specific Passwords**. Then run this command with the Apple ID that belongs to Team `492PXE825S`:
 

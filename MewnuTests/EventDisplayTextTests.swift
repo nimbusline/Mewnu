@@ -59,6 +59,23 @@ final class EventDisplayTextTests: XCTestCase {
                        String(localized: "All day", locale: locale))
     }
 
+    func testPointEventUsesOneDateAndTimeInBothLanguages() {
+        let start = date(2026, 10, 25, 9)
+        let event = EventInfo(id: "point", calendarID: "work", title: "Point",
+                              start: start, end: start, isAllDay: false, location: nil, notes: nil)
+        for identifier in ["en_US", "de_DE"] {
+            let locale = Locale(identifier: identifier)
+            var dateStyle = Date.FormatStyle.dateTime.day().month(.abbreviated).year().hour().minute().locale(locale)
+            dateStyle.calendar = calendar
+            dateStyle.timeZone = calendar.timeZone
+            XCTAssertEqual(EventDisplayText.detailTime(for: event, calendar: calendar, locale: locale), start.formatted(dateStyle))
+            var timeStyle = Date.FormatStyle.dateTime.hour().minute().locale(locale)
+            timeStyle.calendar = calendar
+            timeStyle.timeZone = calendar.timeZone
+            XCTAssertEqual(EventDisplayText.rowTime(for: event, on: start, calendar: calendar, locale: locale), start.formatted(timeStyle))
+        }
+    }
+
     private var timeStyle: Date.FormatStyle {
         var style = Date.FormatStyle.dateTime.hour().minute().locale(locale)
         style.calendar = calendar

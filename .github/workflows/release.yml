@@ -24,7 +24,11 @@ jobs:
         with:
           persist-credentials: false
       - name: Install XcodeGen
-        run: brew install xcodegen
+        run: scripts/install-xcodegen.sh
+      - name: Validate entitlements
+        run: scripts/validate-entitlements.sh
+      - name: Generate project and reject drift
+        run: scripts/generate-project.sh --check
       - name: Verify version
         id: version
         env:

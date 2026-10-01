@@ -2,7 +2,7 @@
 
 The ADRs define architecture. This guide specifies product and interface contracts, behavior rules, and acceptance criteria. The views, assets, and [synthetic screenshots](SCREENSHOTS.md) document the UI appearance.
 
-Documentation edition: 2026-09-30. This contract covers the defined product scope. See [architecture references and validation](ARCHITECTURE-REFERENCES.md) for technical references and validation resources.
+Documentation edition: 2026-10-01. This contract covers the defined product scope. See [architecture references and validation](ARCHITECTURE-REFERENCES.md) for technical references and validation resources.
 
 ## Product contract
 
@@ -21,9 +21,10 @@ Support English and German. Dates, times, time zones, and week starts follow sys
 | CalendarService | Read access, async requestAccess, async throwing load(from:to:), onChange callback; main-actor interface |
 | CalendarWorkspace | Find/open Apple Calendar and open Calendar privacy settings; report application-opening errors |
 | CalendarViewModel | Main-actor permission, visible-month, date, selected-event, filter, refresh-task, and index state |
+| AppPreferences | Actual native login-item state, explicit registration, installed version, and browser release action; injectable system boundary |
 | MenuWindowSize | Fixed width, persisted height, and safe bounds including NaN and infinity |
 
-Map calendars with a system-accent color fallback and title sorting. Calendar colors shown in the UI reflect the latest accepted snapshot. Apply [bounded entity decoding](adr/0028-calendar-title-decoding.md) to calendar and event titles; display missing titles using the localized Untitled event label. Discard events with missing calendar/date fields or nonpositive duration. Combine calendar identity, event identity with fallback, and start time for occurrence IDs. Do not expand recurrence rules locally.
+Map calendars with a system-accent color fallback and title sorting. Calendar colors shown in the UI reflect the latest accepted snapshot. Apply [bounded entity decoding](adr/0028-calendar-title-decoding.md) to calendar and event titles; display missing titles using the localized Untitled event label. Discard events with missing calendar/date fields or negative duration. Accept timed zero-duration entries as point events; reject zero-duration all-day entries. Combine calendar identity, event identity with fallback, and start time for occurrence IDs. Do not expand recurrence rules locally.
 
 Model equality and helper algorithms are implementation details unless required by an ADR. Their current form does not add a product requirement; observable behavior and the system boundaries above govern changes.
 
@@ -50,26 +51,30 @@ Model equality and helper algorithms are implementation details unless required 
 
 The header keeps calendar selection close to its affected content. The footer orders Help (Back while Help is open), Open Apple Calendar, and Quit from left to right. These four actions share icon metrics, clickable areas, and native interaction feedback; see [ADR-0029](adr/0029-icon-action-layout.md).
 
-Presentation prioritizes Help, then permission state. With allowed access, details take precedence over filters and the calendar. Show errors on one line in the footer with their complete text in a tooltip. A separate loading spinner or elaborate error dialog is outside the defined scope.
+Presentation prioritizes Help, then permission state. With allowed access, details take precedence over filters and the calendar. Show errors as wrapping text in a separate scrollable area above the footer. Preserve reachable footer actions and the resize handle. A separate loading spinner or elaborate error dialog is outside the defined scope.
 
 ## Day and display rules
 
 - Build 42 grid days from the system's first weekday at or before the month start. Fetch from the first grid day to the day after the last grid day.
-- An event overlaps a day when start < day.end and end > day.start. Ends are exclusive; use Calendar day boundaries.
+- A positive-duration event overlaps a day when start < day.end and end > day.start. A timed point event belongs only to the day where day.start ≤ start < day.end. Ends are exclusive; use Calendar day boundaries.
 - Sort all-day events first, then by start, localized title, and ID. Use a scrollable LazyVStack agenda and show the visible daily event count.
 - Show one colored dot per visible calendar with events. Show all dots for up to four calendars; above four, show three dots plus the remainder. Remainders above 99 display as 99+.
 - Mark Today independently of selection. Selection uses an accent fill and white text. Unselected Today uses an accent outline and emphasized number in normal text color. Dim dates outside the visible month.
-- All-day time labels show All day. Timed labels show the start time when the event starts on the selected day; otherwise, show Until … when it ends by that day's end, or Continues when it spans beyond it. Details show complete date/time ranges and the inclusive final day for all-day events.
-- Details show title, calendar, time, and optional location/notes. Notes are plain text in a bounded scroll area. No HTML rendering or event editing is provided.
+- All-day time labels show All day. Timed labels show the start time when the event starts on the selected day; otherwise, show Until … when it ends by that day's end, or Continues when it spans beyond it. Details show complete date/time ranges, one date/time for point events, and the inclusive final day for all-day events.
+- Details show title, calendar, time, and optional location/notes. Title, location, and plain-text notes wrap in one scrollable detail area using the remaining window height; the close button stays outside it. No HTML rendering or event editing is provided.
 - Filters show checkbox, calendar color, and title without account names. Align checkboxes left and allow two lines for long names.
 
 ## Window, persistence, and accessibility
 
 Use 364-point width, 620-point default height, and a regular 500–1,000-point range. Available height is visible screen height minus 24, capped at 1,000. Very small displays also reduce the minimum. Determine the screen using pointer location or the main screen. Preview a drag locally and save on release. VoiceOver adjusts in 40-point steps.
 
-Persist only hiddenCalendarIDs and menuWindowHeight for product functionality. New calendars are visible; existing hidden IDs remain saved. Do not persist event snapshots. Test mode uses a separate defaults suite cleared on launch.
+Persist only hiddenCalendarIDs and menuWindowHeight for product functionality. New calendars are visible; existing hidden IDs remain saved. Do not persist event snapshots. Test mode uses a separate defaults suite cleared on launch; an explicit test-only relaunch option preserves it for resize persistence checks. Login-item registration is managed by ServiceManagement, not a saved Boolean. UI tests use a fake registration and browser boundary.
 
 Give icon buttons localized labels and tooltips with 28 × 28-point click areas. Date cells have language-independent YYYY-MM-DD identifiers and VoiceOver information for date, Today, selection, and calendars. Make the longer German permission view scrollable and stack its actions vertically. Use an opaque system window background and calendar colors supplied by the store.
+
+Launch at login is optional and initially unregistered; Help reflects system registration, approval, and error states. Re-read it when the app becomes active. The latest-release action opens the fixed GitHub URL only on activation and performs no app-side network request, version comparison, or automatic installation. Help displays the installed bundle version.
+
+Keyboard actions: Command-T for Today, Command-left/right for months, Shift-Command-F for filters, Shift-Command-H for Help/Back, and Escape for return. Full keyboard traversal, focus visibility, VoiceOver reading order, and actual dragging require the [interaction checklist](INTERACTION-VALIDATION.md).
 
 ## Implementation sequence
 

@@ -18,6 +18,7 @@ enum EventDisplayText {
 
     static func detailTime(for event: EventInfo, calendar: Calendar, locale: Locale) -> String {
         let start = date(event.start, includesTime: !event.isAllDay, calendar: calendar, locale: locale)
+        if !event.isAllDay && event.start == event.end { return start }
         if event.isAllDay {
             let lastDay = event.end.addingTimeInterval(-1)
             let prefix = String(localized: "All day", locale: locale)

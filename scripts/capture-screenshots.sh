@@ -25,6 +25,9 @@ cat > "$app/Contents/Info.plist" <<'PLIST'
 </dict></plist>
 PLIST
 
+documentation_version="$(sed -nE 's/^[[:space:]]*MARKETING_VERSION:[[:space:]]*([0-9]+\.[0-9]+\.[0-9]+)[[:space:]]*$/\1/p' "$project_root/project.yml")"
+plutil -insert CFBundleShortVersionString -string "$documentation_version" "$app/Contents/Info.plist"
+
 if ! xcrun actool "$project_root/Mewnu/Assets.xcassets" \
   --compile "$resources" --platform macosx --minimum-deployment-target 26.0 \
   --app-icon AppIcon --output-partial-info-plist "$stage/asset-info.plist" \
@@ -43,6 +46,7 @@ extension ContentView {
     init(documentationModel: CalendarViewModel, windowSize: MenuWindowSize, help: Bool) {
         self.model = documentationModel
         self.windowSize = windowSize
+        self.preferences = AppPreferences(system: DemoAppPreferencesSystem())
         self._showingHelp = State(initialValue: help)
     }
 }

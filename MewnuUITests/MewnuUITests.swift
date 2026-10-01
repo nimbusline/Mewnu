@@ -13,6 +13,7 @@ final class MewnuUITests: XCTestCase {
     }
 
     private func assertFooterLayout(_ app: XCUIApplication, file: StaticString = #filePath, line: UInt = #line) {
+        XCTAssertTrue(app.staticTexts["appTitle"].isHittable, file: file, line: line)
         let buttons = ["helpButton", "openCalendarButton", "quitButton"].map { app.buttons[$0] }
         let handle = app.descendants(matching: .any)["resizeWindowHandle"]
         for button in buttons {
@@ -32,6 +33,112 @@ final class MewnuUITests: XCTestCase {
             XCTAssertEqual(filter.frame.height, buttons[0].frame.height, accuracy: 1, file: file, line: line)
             XCTAssertLessThan(filter.frame.maxY, buttons[0].frame.minY, file: file, line: line)
         }
+    }
+
+    private func textContent(_ element: XCUIElement) -> String {
+        // macOS static text uses AXValue; header labels may instead use AXLabel.
+        (element.value as? String).flatMap { $0.isEmpty ? nil : $0 } ?? element.label
+    }
+
+    func testKeyboardMonthFilterAndHelpActions() {
+        let app = XCUIApplication()
+        app.launchArguments.append("-ui-testing")
+        app.launch()
+        openMenu(app)
+        let originalMonth = app.staticTexts["monthTitle"].label
+        app.typeKey(XCUIKeyboardKey.rightArrow, modifierFlags: .command)
+        XCTAssertNotEqual(app.staticTexts["monthTitle"].label, originalMonth)
+        app.typeKey("t", modifierFlags: .command)
+        XCTAssertEqual(app.staticTexts["monthTitle"].label, originalMonth)
+        app.typeKey("f", modifierFlags: [.command, .shift])
+        XCTAssertTrue(app.staticTexts["calendarPickerTitle"].waitForExistence(timeout: 5))
+        app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+        app.typeKey("h", modifierFlags: [.command, .shift])
+        XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+    }
+
+    func testHelpOffersIsolatedLoginPreferenceAndReleaseActionInGerman() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-ui-testing", "-AppleLanguages", "(de)"]
+        app.launch()
+        openMenu(app)
+        app.buttons["helpButton"].click()
+        XCTAssertTrue(app.staticTexts["helpTitle"].waitForExistence(timeout: 5))
+        app.scrollViews["helpScroll"].scroll(byDeltaX: 0, deltaY: -350)
+        let toggle = app.checkBoxes["launchAtLoginToggle"]
+        XCTAssertTrue(toggle.waitForExistence(timeout: 5))
+        toggle.click()
+        app.scrollViews["helpScroll"].scroll(byDeltaX: 0, deltaY: -200)
+        XCTAssertTrue(app.staticTexts["loginItemStatus"].waitForExistence(timeout: 5))
+        XCTAssertEqual(textContent(app.staticTexts["loginItemStatus"]), "Autostart ist eingeschaltet.")
+        toggle.click()
+        XCTAssertEqual(textContent(app.staticTexts["loginItemStatus"]), "Autostart ist ausgeschaltet.")
+        XCTAssertTrue(app.staticTexts["installedVersion"].exists)
+        let release = app.buttons["latestReleaseButton"]
+        XCTAssertEqual(release.label, "Neueste Veröffentlichung öffnen")
+        release.click()
+        XCTAssertEqual(app.buttons["helpButton"].label, "Zurück")
+        assertFooterLayout(app)
+    }
+
+    func testLongGermanDetailsScrollAtMinimumHeight() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-ui-testing", "-ui-testing-long-content", "-ui-testing-short-window", "-AppleLanguages", "(de)"]
+        app.launch()
+        openMenu(app)
+        app.buttons["eventRow_demo-1"].click()
+        let title = app.staticTexts["eventDetailTitle"]
+        XCTAssertTrue(title.waitForExistence(timeout: 5))
+        XCTAssertTrue(title.label.hasSuffix("Beteiligten "))
+        XCTAssertGreaterThan(title.frame.height, 30)
+        let scroll = app.scrollViews["eventDetailScroll"]
+        XCTAssertTrue(scroll.exists)
+        // Reach the notes through the actual scroll area, rather than querying clipped content.
+        scroll.scroll(byDeltaX: 0, deltaY: -5000)
+        let notes = app.staticTexts["eventDetailNotes"]
+        XCTAssertTrue(notes.waitForExistence(timeout: 5))
+        XCTAssertTrue(textContent(notes).hasSuffix("Ende der Notizen"))
+        XCTAssertTrue(app.buttons["closeEventDetailsButton"].isHittable)
+        assertFooterLayout(app)
+        app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
+    }
+
+    func testLongErrorRemainsReadableAboveFooterAtMinimumHeight() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-ui-testing", "-ui-testing-load-error", "-ui-testing-short-window", "-AppleLanguages", "(de)"]
+        app.launch()
+        openMenu(app)
+        let message = app.staticTexts["errorMessage"]
+        XCTAssertTrue(message.waitForExistence(timeout: 5))
+        XCTAssertTrue(textContent(message).hasSuffix("Ende des Hinweises"))
+        XCTAssertGreaterThan(message.frame.height, 30)
+        assertFooterLayout(app)
+    }
+
+    func testPointerDragSavesHeightAcrossRelaunch() throws {
+        guard ProcessInfo.processInfo.environment["MEWNU_TEST_POINTER_DRAG"] == "1" else {
+            throw XCTSkip("Opt-in local gesture check; CI saved-height tests do not validate dragging.")
+        }
+        let app = XCUIApplication()
+        app.launchArguments += ["-ui-testing", "-ui-testing-short-window"]
+        app.launch()
+        openMenu(app)
+        let handle = app.descendants(matching: .any)["resizeWindowHandle"]
+        let originalY = handle.frame.midY
+        let start = handle.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.5))
+        start.press(forDuration: 0.2, thenDragTo: start.withOffset(CGVector(dx: 0, dy: 100)))
+        XCTAssertGreaterThan(handle.frame.midY, originalY + 50)
+        let enlarged = handle.label
+        app.terminate()
+        app.launchArguments = ["-ui-testing", "-ui-testing-preserve-preferences"]
+        app.launch()
+        openMenu(app)
+        XCTAssertEqual(handle.label, enlarged)
+        assertFooterLayout(app)
     }
 
     func testWindowHeightPreferenceResizesMenu() {
