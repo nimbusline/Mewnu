@@ -21,7 +21,7 @@ Click the cat to see your month, browse a day's agenda, and read event details w
 - **Choose your calendars.** Use the filter button to show work, personal, family, or other calendars already available in Apple Calendar. Your selection is remembered.
 - **Make room for a busy day.** Drag the bottom handle to make the event list taller. Mewnu remembers the window height.
 - **Start with your day.** Enable **Launch at login** in Help if you want Mewnu to start when you sign in. macOS manages the setting; it is off until you enable it.
-- **Find updates.** Help shows the installed version and opens the latest GitHub release in your browser on request. Updates are downloaded and installed manually.
+- **Stay up to date.** Help checks for signed GitHub updates and offers optional automatic checking and installation.
 - **Keep editing in Apple Calendar.** The calendar icon at the bottom opens Apple's app, where you can create or change events. Mewnu itself only reads them.
 
 Mewnu lives in the menu bar: there is no Dock icon, separate main window, or Mewnu account to set up. It follows your system's date, time, and week settings, and provides keyboard controls and VoiceOver labels; interaction verification is described in the [checklist](docs/INTERACTION-VALIDATION.md).
@@ -86,13 +86,13 @@ shasum -a 256 -c Mewnu-vX.Y.Z-macos.dmg.sha256
 
 ### Updating
 
-Open **Help → Open latest release**, compare the version on GitHub with the installed version shown in Help, and download the newer signed DMG. Quit Mewnu, drag the new app to Applications, confirm replacement, and reopen it. Calendar filters and window height are retained. Mewnu does not check for or install updates in the background.
+Open **Help → Check for updates…** to check GitHub for a newer signed release and install it through Sparkle. Optionally enable **Automatically check for updates** and **Automatically install updates**. Both default to off; disabling checks disables automatic installation. Checks normally run daily when enabled. Updates preserve calendar filters and window height and may relaunch the app on quit. Existing 1.0.x installations need a one-time manual installation of the first updater-enabled version. The browser release link remains available for manual recovery.
 
 ### Calendar access and privacy
 
 Mewnu reads the calendars already configured in Apple Calendar; you do not sign in to your calendar accounts again. Account setup and synchronization stay with macOS and Apple Calendar.
 
-macOS asks for **Full Access** because EventKit requires that permission to read events. Mewnu never creates, changes, or deletes events. It has no analytics, network service, or event-content storage. Calendar filters and the window height are saved locally.
+macOS asks for **Full Access** because EventKit requires that permission to read events. Mewnu never creates, changes, or deletes events. It has no analytics, calendar network service, or event-content storage. Calendar filters, window height, and update preferences are saved locally. Software updates contact GitHub over HTTPS; GitHub receives ordinary HTTP transport metadata, but no calendar content.
 
 If access was denied or revoked, open **System Settings → Privacy & Security → Calendars**, enable Mewnu, and select **Full Access**. Return to Mewnu or choose **Check access again**. macOS does not normally repeat the initial permission prompt after a denial.
 
@@ -122,7 +122,7 @@ If an event seems to be missing, check the selected day and calendar filter, the
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) exactly 2.46.0 to generate the project.
 - Python 3 for the coverage check and optional artwork generation.
 
-Mewnu uses SwiftUI, AppKit, and EventKit. It has **no third-party runtime dependencies** and requires no backend or API keys.
+Mewnu uses SwiftUI, AppKit, and EventKit. It embeds the pinned [Sparkle updater](https://sparkle-project.org/) and requires no calendar backend or user API keys.
 
 ### Build and run
 
@@ -208,4 +208,4 @@ Use the [issue templates](https://github.com/nimbusline/Mewnu/issues/new/choose)
 
 Release tags must match `MARKETING_VERSION` in `project.yml`. The release workflow tests, builds, signs, notarizes, and packages a DMG plus its SHA-256 checksum. Local build success alone does not verify a release; follow [RELEASING.md](RELEASING.md).
 
-Licensed under [MIT](LICENSE).
+Licensed under [MIT](LICENSE). Sparkle’s bundled copyright and external-license notices are included in [Sparkle-LICENSE.txt](Mewnu/Resources/Sparkle-LICENSE.txt).

@@ -50,3 +50,8 @@
 "Compare the installed version with the release page, then download and replace Mewnu manually." = "Compare the installed version with the release page, then download and replace Mewnu manually.";
 "Could not open the release page. Open github.com/nimbusline/Mewnu/releases in your browser." = "Could not open the release page. Open github.com/nimbusline/Mewnu/releases in your browser.";
 "Keyboard: ⌘T Today · ⌘←/⌘→ Months · ⇧⌘F Calendars · ⇧⌘H Help · Escape Back" = "Keyboard: ⌘T Today · ⌘←/⌘→ Months · ⇧⌘F Calendars · ⇧⌘H Help · Escape Back";
+
+"Check for updates…" = "Check for updates…";
+"Automatically check for updates" = "Automatically check for updates";
+"Automatically install updates" = "Automatically install updates";
+"Updates are downloaded from GitHub and verified before installation. Automatic updates can restart Mewnu when it quits." = "Updates are downloaded from GitHub and verified before installation. Automatic updates can restart Mewnu when it quits.";

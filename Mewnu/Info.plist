@@ -13,4 +13,14 @@
   <key>LSMinimumSystemVersion</key><string>26.0</string>
   <key>LSUIElement</key><true/>
   <key>NSCalendarsFullAccessUsageDescription</key><string>Mewnu reads your calendars to show events in the menu bar. It never changes events.</string>
+  <key>SUFeedURL</key><string>https://github.com/nimbusline/Mewnu/releases/latest/download/appcast.xml</string>
+  <key>SUPublicEDKey</key><string>X3dQ/Gdk/NCP2SZ+qbijlNQx4VHiEu2QPxjO3eRqLlc=</string>
+  <key>SUEnableAutomaticChecks</key><false/>
+  <key>SUAutomaticallyUpdate</key><false/>
+  <key>SUEnableInstallerLauncherService</key><true/>
+  <key>SUEnableDownloaderService</key><true/>
+  <key>SUVerifyUpdateBeforeExtraction</key><true/>
+  <key>SURequireSignedFeed</key><true/>
+  <key>SUShowReleaseNotes</key><false/>
+  <key>SUSendProfileInfo</key><false/>
 </dict></plist>

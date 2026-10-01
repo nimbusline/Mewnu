@@ -4,7 +4,7 @@ This file is shared project guidance. Keep personal machine settings, credential
 
 ## Product contract
 
-- Mewnu is a read-only macOS 26+ menu bar view of the user's Apple Calendar data. It has no Dock window, account system, analytics, or network service.
+- Mewnu is a read-only macOS 26+ menu bar view of the user's Apple Calendar data. It has no Dock window, account system, analytics, or calendar network service. Software updates use Sparkle and GitHub Releases; no calendar content is transmitted.
 - EventKit access is for reading events only. Never add event creation, edits, deletion, or storage of event content without an explicit product decision.
 - Never log or commit real event titles, notes, locations, account names, or screenshots containing personal calendar data. Tests and screenshots use synthetic data.
 - Keep German and English strings synchronized. Check keyboard navigation, VoiceOver labels, and the resizable menu window when changing UI.
@@ -18,7 +18,7 @@ This file is shared project guidance. Keep personal machine settings, credential
 - `Mewnu/Core/EventDisplayText.swift` formats timed, overnight, multiday, and all-day event text. An all-day event's EventKit end date is exclusive; its displayed last day is inclusive.
 - `Mewnu/Views/` contains the SwiftUI menu, month grid, agenda, filters, and detail view. Calendar colors are used for day markers; more than four calendars use three dots and an overflow count.
 - `Mewnu/Core/MenuWindowSize.swift` stores the menu height in `UserDefaults` and clamps it to the available display height. The bottom grip in `ContentView` previews resizing and saves the final height.
-- The app has no third-party runtime libraries. XcodeGen is a development and CI tool, not part of the distributed app.
+- Sparkle 2.10.0 is the app’s pinned runtime dependency for signed updates; commit Package.resolved. XcodeGen is a development and CI tool, not part of the distributed app.
 
 ## Verification
 
@@ -44,3 +44,5 @@ Use a fresh result-bundle path for each run. The coverage gate requires at least
 - `.github/workflows/release.yml` and `scripts/release.sh` test, build, sign, notarize, and package the app. `project.yml`'s `MARKETING_VERSION` must match a release tag `vX.Y.Z`.
 - Keep signing certificates, Apple account credentials, app-specific passwords, and real calendar data out of commits, test logs, and agent messages. Follow `RELEASING.md` for the release procedure.
 - Do not call a release verified solely because a local build passes: signing, notarization, Gatekeeper assessment, and the GitHub CI result have separate checks.
+
+- Updater releases require increasing `CURRENT_PROJECT_VERSION` and `MARKETING_VERSION`, signed feeds and archives, and inside-out signing of Sparkle helpers. Never print or commit the Ed25519 private key. Synthetic tests/previews must use the demo driver.

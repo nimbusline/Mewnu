@@ -29,3 +29,5 @@ Use a separate macOS test account and signed app installed in Applications. Enab
 ## Current change evidence
 
 Implementation of ADRs 0030–0037 is dated 2026-10-01. Automated results and remaining manual checks are recorded in [ADR implementation validation](ADR-IMPLEMENTATION-VALIDATION.md). No actual login, VoiceOver session, or signed replacement is inferred from unit/UI test success.
+
+For ADR-0038, check the localized manual-update action, automatic-check/install toggles, disabled installation until checks are enabled, and clearing installation when checks are disabled. Use synthetic fixtures for UI checks. On a separate account, test an actual signed older/newer pair, unavailable network/feed, update prompts, installation and relaunch, retained preferences, VoiceOver, and keyboard focus.

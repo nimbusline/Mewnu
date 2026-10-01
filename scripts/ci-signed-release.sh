@@ -7,7 +7,7 @@ if [ "$#" -ne 1 ] || [[ ! "$1" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
   echo 'Usage: scripts/ci-signed-release.sh VERSION' >&2
   exit 2
 fi
-for name in APPLE_DEVELOPER_ID_P12_BASE64 APPLE_DEVELOPER_ID_P12_PASSWORD APPLE_ID APPLE_TEAM_ID APPLE_APP_SPECIFIC_PASSWORD; do
+for name in SPARKLE_EDDSA_PRIVATE_KEY APPLE_DEVELOPER_ID_P12_BASE64 APPLE_DEVELOPER_ID_P12_PASSWORD APPLE_ID APPLE_TEAM_ID APPLE_APP_SPECIFIC_PASSWORD; do
   if [ -z "${!name:-}" ]; then
     echo "Missing release secret: $name" >&2
     exit 2

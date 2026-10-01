@@ -18,6 +18,10 @@ jobs:
           persist-credentials: false
       - name: Install XcodeGen
         run: scripts/install-xcodegen.sh
+      - name: Install Sparkle signing tools
+        run: scripts/install-sparkle-tools.sh
+      - name: Test signed update feeds
+        run: python3 scripts/tests/test-update-feed.py
       - name: Test development safeguards
         run: python3 scripts/tests/test-development-checks.py
       - name: Validate entitlements
@@ -35,5 +39,11 @@ jobs:
           lipo -verify_arch arm64 "$binary"
           lipo -verify_arch x86_64 "$binary"
           lipo -archs "$binary"
+          app="$RUNNER_TEMP/MewnuRelease/Build/Products/Release/Mewnu.app"
+          sparkle="$app/Contents/Frameworks/Sparkle.framework/Versions/B/Sparkle"
+          lipo -verify_arch arm64 "$sparkle"
+          lipo -verify_arch x86_64 "$sparkle"
+          scripts/sign-app.sh "$app" -
+          python3 scripts/tests/check-signed-app.py "$app"
       - name: UI tests
         run: xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES '-only-testing:MewnuUITests' test

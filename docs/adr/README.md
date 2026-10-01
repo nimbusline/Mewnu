@@ -4,7 +4,7 @@ These 37 ADRs document Mewnu's product scope, architecture, presentation, test s
 
 The ADRs use the present tense as implementation guidance. `accepted` identifies a decision that applies to Mewnu. The documentation date records this edition; it does not state when a decision was originally made. Documentation dates alone do not establish a historical meeting or approval timeline; an explicit decision date records acceptance where known.
 
-`proposed` records describe changes under review, not implemented behavior or completed validation. ADRs 0030–0037 address the review of event durations, long content, interaction verification, reproducible project generation, repository corrections, and everyday convenience. Security support and entitlement syntax, and launch at login and updates, have separate records because each can be implemented independently. ADRs 0030–0037 were explicitly accepted on 2026-10-01. Their implementation and local verification are described in [the validation record](../ADR-IMPLEMENTATION-VALIDATION.md); required manual and release checks remain explicitly unverified. ADR-0030 updates the duration rule in ADR-0008; ADR-0033 extends ADR-0021 with exact generator pinning and drift checks. Other existing decisions continue to apply.
+`proposed` records describe changes under review, not implemented behavior or completed validation. ADRs 0030–0037 address the review of event durations, long content, interaction verification, reproducible project generation, repository corrections, and everyday convenience. Security support and entitlement syntax, and launch at login and updates, have separate records because each can be implemented independently. ADRs 0030–0037 were explicitly accepted on 2026-10-01. Their implementation and local verification are described in [the validation record](../ADR-IMPLEMENTATION-VALIDATION.md); required manual and release checks remain explicitly unverified. ADR-0030 updates the duration rule in ADR-0008; ADR-0033 extends ADR-0021 with exact generator pinning and drift checks. ADR-0038 supersedes ADR-0037 with the requested automatic updater and revises the network/dependency and release contracts. Other existing decisions continue to apply.
 
 The scope covers significant application and development decisions. Variable names and one-time administrative actions do not require separate ADRs.
 
@@ -46,7 +46,7 @@ The scope covers significant application and development decisions. Variable nam
 | [0034](0034-security-support-policy.md) | Keep security support policy aligned with published releases | accepted | 2026-10-01 |
 | [0035](0035-entitlements-xml-validation.md) | Use well-formed entitlement XML and validate it independently | accepted | 2026-10-01 |
 | [0036](0036-launch-at-login.md) | Offer an optional launch-at-login setting | accepted | 2026-10-01 |
-| [0037](0037-manual-update-path.md) | Offer a browser-based path to release updates | accepted | 2026-10-01 |
+| [0037](0037-manual-update-path.md) | Offer a browser-based path to release updates | superseded | 2026-10-01 |
 
 ## Using these records
 
@@ -55,6 +55,8 @@ The scope covers significant application and development decisions. Variable nam
 - [Template](template.md): document further architecture decisions.
 
 ADRs explain why a choice applies and what costs follow from it. The implementation guide defines behavior; source code and tests provide implementation details. Shared verification guidance lives in the architecture references rather than being repeated in every record. Start with product scope and data rules, then state management, presentation, and verification.
+
+| [0038](0038-signed-automatic-updates.md) | Deliver signed automatic updates through Sparkle and GitHub Releases | accepted | 2026-10-01 |
 
 ## Maintenance
 

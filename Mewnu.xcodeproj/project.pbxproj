@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05AACCDA17FB84F5B5D03353 /* AppUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64EB8231620751D9305520A /* AppUpdaterTests.swift */; };
+		0D46CBDEC3F439A51881FDEA /* Sparkle-LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = D38A4998EE1CB089C529D65D /* Sparkle-LICENSE.txt */; };
+		0DC43D75A54EE9E064ABD8F2 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 1AE420530567FC2FC5F4A5F9 /* Sparkle */; };
 		12B66DAF5A503D5F67DE3056 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811077955E9635E0751F785C /* Models.swift */; };
 		195B9F2E7A2AB3A58E9E3E3D /* ContentViewRenderingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 909672AD4BB0D67FF2352A59 /* ContentViewRenderingTests.swift */; };
+		1AC7CA9616E28C409C023572 /* AppUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7F77E5205954CAF86E9A64C7 /* AppUpdater.swift */; };
 		221FB9EC75628055BAB82280 /* AppPreferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9686D19FB4109A4C2775176F /* AppPreferencesTests.swift */; };
 		250FF92476FF248D5EED9310 /* EventDisplayTextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDFFCE9A7F840621B99E3930 /* EventDisplayTextTests.swift */; };
 		32D5855C53C6D5A259919296 /* MewnuApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57D1C6DC1AE9E78F1D7D12E /* MewnuApp.swift */; };
@@ -67,6 +71,7 @@
 		67E6450765ECB6419F9312F6 /* CalendarMath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMath.swift; sourceTree = "<group>"; };
 		732E19BF13B4626D68D61866 /* CalendarMathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarMathTests.swift; sourceTree = "<group>"; };
 		75EE0E6CFCA74A9962DE36DA /* CalendarTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTextTests.swift; sourceTree = "<group>"; };
+		7F77E5205954CAF86E9A64C7 /* AppUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdater.swift; sourceTree = "<group>"; };
 		811077955E9635E0751F785C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		909672AD4BB0D67FF2352A59 /* ContentViewRenderingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewRenderingTests.swift; sourceTree = "<group>"; };
 		90EE9E449FAE65BE10C1D392 /* MewnuUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MewnuUITests.swift; sourceTree = "<group>"; };
@@ -75,14 +80,27 @@
 		9C64212A7EB1AC30FD2B03AA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		AB2382E60C6612C15F15E02E /* Mewnu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Mewnu.entitlements; sourceTree = "<group>"; };
 		B57D1C6DC1AE9E78F1D7D12E /* MewnuApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MewnuApp.swift; sourceTree = "<group>"; };
+		C64EB8231620751D9305520A /* AppUpdaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUpdaterTests.swift; sourceTree = "<group>"; };
 		C6C485C3128CC1DDE7BA69EE /* MewnuUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MewnuUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C83D4EB3F5F2D9866C3A36C4 /* EventKitCalendarServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventKitCalendarServiceTests.swift; sourceTree = "<group>"; };
 		CDFFCE9A7F840621B99E3930 /* EventDisplayTextTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDisplayTextTests.swift; sourceTree = "<group>"; };
+		D38A4998EE1CB089C529D65D /* Sparkle-LICENSE.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Sparkle-LICENSE.txt"; sourceTree = "<group>"; };
 		D609FAB09A0A17E77B7AF877 /* EventDisplayText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDisplayText.swift; sourceTree = "<group>"; };
 		E4B023CC896B588DFDC9BB0F /* CalendarService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarService.swift; sourceTree = "<group>"; };
 		F1FCFB0B2763423CC77EF2CB /* Mewnu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mewnu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56F34A5B2510742D18D68E5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		88ED12C7B527F86C5CD34740 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0DC43D75A54EE9E064ABD8F2 /* Sparkle in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2F50E2C744DE10CF96FFAD1C /* Views */ = {
@@ -108,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				9686D19FB4109A4C2775176F /* AppPreferencesTests.swift */,
+				C64EB8231620751D9305520A /* AppUpdaterTests.swift */,
 				732E19BF13B4626D68D61866 /* CalendarMathTests.swift */,
 				75EE0E6CFCA74A9962DE36DA /* CalendarTextTests.swift */,
 				494CE5805C5684E2F8FB4762 /* CalendarViewModelTests.swift */,
@@ -129,9 +148,18 @@
 				7F2185BACAD2B7C464BBB5BE /* Core */,
 				3511E9687AB2FA7FAFE36997 /* InfoPlist.strings */,
 				4D18916480ACF4BC33B29608 /* Localizable.strings */,
+				68AE16C9C7EAAA1AA4335442 /* Resources */,
 				2F50E2C744DE10CF96FFAD1C /* Views */,
 			);
 			path = Mewnu;
+			sourceTree = "<group>";
+		};
+		68AE16C9C7EAAA1AA4335442 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D38A4998EE1CB089C529D65D /* Sparkle-LICENSE.txt */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		6DAF0D8BA9CDAF72264DA65A /* MewnuUITests */ = {
@@ -146,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				4A758096840ABF26BC767B13 /* AppPreferences.swift */,
+				7F77E5205954CAF86E9A64C7 /* AppUpdater.swift */,
 				67E6450765ECB6419F9312F6 /* CalendarMath.swift */,
 				E4B023CC896B588DFDC9BB0F /* CalendarService.swift */,
 				3744F05C4207872923A3AD0D /* CalendarText.swift */,
@@ -195,6 +224,7 @@
 			buildPhases = (
 				26B9B9B31B19E62E6B9B462B /* Sources */,
 				6774A0146D9F67D1D5AE27BD /* Resources */,
+				88ED12C7B527F86C5CD34740 /* Frameworks */,
 			);
 			buildRules = (
 			);
@@ -202,6 +232,7 @@
 			);
 			name = Mewnu;
 			packageProductDependencies = (
+				1AE420530567FC2FC5F4A5F9 /* Sparkle */,
 			);
 			productName = Mewnu;
 			productReference = F1FCFB0B2763423CC77EF2CB /* Mewnu.app */;
@@ -256,6 +287,9 @@
 			);
 			mainGroup = 4B77E7CA06F411F484B68D6B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				FA851E85BBFB8525B60F3476 /* XCRemoteSwiftPackageReference "Sparkle" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 99D31454EBF332E167CB16AD /* Products */;
 			projectDirPath = "";
@@ -276,6 +310,7 @@
 				CC8BA801269C28A6ED69B175 /* Assets.xcassets in Resources */,
 				76592A769E7472EA2AB518D6 /* InfoPlist.strings in Resources */,
 				3B85F82B76B12670DEEB55AC /* Localizable.strings in Resources */,
+				0D46CBDEC3F439A51881FDEA /* Sparkle-LICENSE.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6EFB62C0B19D03683DC11409 /* AppPreferences.swift in Sources */,
+				1AC7CA9616E28C409C023572 /* AppUpdater.swift in Sources */,
 				796F97F6D379521C8DE12854 /* CalendarMath.swift in Sources */,
 				59C9C8D134B87B04386358A7 /* CalendarService.swift in Sources */,
 				C7A33F90824CC731AE6B3901 /* CalendarText.swift in Sources */,
@@ -306,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				221FB9EC75628055BAB82280 /* AppPreferencesTests.swift in Sources */,
+				05AACCDA17FB84F5B5D03353 /* AppUpdaterTests.swift in Sources */,
 				9AD9CF3F340EFFFB26B92E28 /* CalendarMathTests.swift in Sources */,
 				8418247FD88C99D1D01E4C79 /* CalendarTextTests.swift in Sources */,
 				988F45C091D6D0ED79B06997 /* CalendarViewModelTests.swift in Sources */,
@@ -481,7 +518,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -540,7 +577,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -628,6 +665,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FA851E85BBFB8525B60F3476 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1AE420530567FC2FC5F4A5F9 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FA851E85BBFB8525B60F3476 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AE5B561C285F1A01646DC201 /* Project object */;
 }

@@ -28,3 +28,7 @@ Implementation references:
 
 - [README.md](../../README.md)
 - [Mewnu/Core/CalendarService.swift](../../Mewnu/Core/CalendarService.swift)
+
+## Extension on 2026-10-01
+
+[ADR-0038](0038-signed-automatic-updates.md) adds automatic updates. Software update requests to GitHub are now permitted as a separate distribution concern; calendar data remains local. Update preferences are also stored locally by Sparkle.

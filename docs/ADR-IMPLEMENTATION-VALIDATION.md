@@ -31,3 +31,7 @@ Native login-item integration follows [Apple's registration API](https://develop
 The default UI suite skips the opt-in pointer test. A local opt-in attempt synthesized the drag and stalled on the subsequent XCTest accessibility lookup and was interrupted. It does not prove resizing or persistence works. A direct native UI inspection also timed out, so there is no successful manual drag result from this session. Use `scripts/test-pointer-resize.sh` on a reliable test session or perform the checklist manually; its opt-in test has bounded execution time.
 
 No complete keyboard Tab/Shift-Tab traversal, VoiceOver session, actual login on a separate account, real EventKit point-event query, or signed app replacement was performed. These remain required under [the interaction checklist](INTERACTION-VALIDATION.md). Signing, notarization, Gatekeeper, and remote GitHub CI were not run and must be verified separately before a release.
+
+## Automatic updater successor
+
+ADR-0038 supersedes the browser-only update decision in ADR-0037. Its implementation and separate local/production verification are recorded in [UPDATER-VALIDATION.md](UPDATER-VALIDATION.md).

@@ -72,6 +72,8 @@ def validate() -> None:
         assert plistlib.loads(valid) == {
             "com.apple.security.app-sandbox": True,
             "com.apple.security.personal-information.calendars": True,
+            "com.apple.security.temporary-exception.mach-lookup.global-name": [
+                "$(PRODUCT_BUNDLE_IDENTIFIER)-spks", "$(PRODUCT_BUNDLE_IDENTIFIER)-spki"],
         }
         run(["scripts/validate-entitlements.sh"])
 

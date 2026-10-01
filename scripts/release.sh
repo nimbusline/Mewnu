@@ -30,6 +30,7 @@ fi
 version=$1
 root=${0:A:h:h}
 cd "$root"
+python3 scripts/check-update-version.py "$version"
 scripts/validate-entitlements.sh
 scripts/generate-project.sh --check
 xcodebuild -project Mewnu.xcodeproj -scheme Mewnu -destination 'platform=macOS' CODE_SIGN_IDENTITY=- CODE_SIGNING_ALLOWED=YES test
@@ -44,7 +45,7 @@ sign_options=()
 if [[ -n ${MEWNU_SIGN_KEYCHAIN:-} ]]; then
   sign_options=(--keychain "$MEWNU_SIGN_KEYCHAIN")
 fi
-codesign "${sign_options[@]}" --force --timestamp --options runtime --entitlements Mewnu/Mewnu.entitlements --sign "$sign_identity" "$app"
+scripts/sign-app.sh "$app" "$sign_identity"
 codesign --verify --deep --strict --verbose=2 "$app"
 
 mkdir -p "$root/dist"
@@ -64,4 +65,5 @@ codesign --verify --verbose=2 "$artifact"
 hdiutil verify "$artifact"
 spctl --assess --type open --context context:primary-signature --verbose=2 "$artifact"
 (cd "$root/dist" && shasum -a 256 "Mewnu-v$version-macos.dmg" > "Mewnu-v$version-macos.dmg.sha256")
+scripts/generate-update-feed.sh "$version" "$artifact" "$app"
 print "Release ready: $artifact"

@@ -11,3 +11,5 @@ Use the bug or feature issue template so reports include enough context. For a s
 5. Include screenshots only with sample data, never personal calendar information.
 
 By contributing, you agree that your contribution is distributed under the repository's MIT license.
+
+Updater changes must retain pinned Sparkle/package versions, signed feed/archive verification, and sandbox permissions. Install the signing tools with `scripts/install-sparkle-tools.sh` and run `python3 scripts/tests/test-update-feed.py`; it uses an ephemeral synthetic key without touching the real signing Keychain. UI tests and documentation use the demo updater. See ADR-0038 and RELEASING.md for the production installer checks.

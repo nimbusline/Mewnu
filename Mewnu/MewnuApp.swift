@@ -5,6 +5,7 @@ struct MewnuApp: App {
     @StateObject private var model: CalendarViewModel
     @StateObject private var windowSize: MenuWindowSize
     @StateObject private var preferences: AppPreferences
+    @StateObject private var updater: AppUpdater
 
     init() {
         let isUITesting = ProcessInfo.processInfo.arguments.contains("-ui-testing")
@@ -26,6 +27,8 @@ struct MewnuApp: App {
         } else {
             defaults = .standard
         }
+        _updater = StateObject(wrappedValue: AppUpdater(driver: (isUITesting || NSClassFromString("XCTestCase") != nil)
+            ? DemoUpdateDriver() : SparkleUpdateDriver()))
         _model = StateObject(wrappedValue: CalendarViewModel(service: service, defaults: defaults))
         let windowSize = MenuWindowSize(defaults: defaults)
         if isUITesting && ProcessInfo.processInfo.arguments.contains("-ui-testing-short-window") {
@@ -38,7 +41,7 @@ struct MewnuApp: App {
 
     var body: some Scene {
         MenuBarExtra {
-            ContentView(model: model, windowSize: windowSize, preferences: preferences)
+            ContentView(model: model, windowSize: windowSize, preferences: preferences, updater: updater)
         } label: {
             Image("MenuIcon").renderingMode(.template).accessibilityLabel("Mewnu")
         }

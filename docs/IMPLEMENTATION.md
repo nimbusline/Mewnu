@@ -6,7 +6,7 @@ Documentation edition: 2026-10-01. This contract covers the defined product scop
 
 ## Product contract
 
-Mewnu is a native macOS 26+ menu bar app for Apple silicon and Intel. Clicking the cat opens a window without a Dock icon or separate main window. It provides a month view, daily agenda, calendar filters, event details, Help, and permission recovery. It reads existing Apple Calendar accounts; editing remains in Apple Calendar. It has no account system, backend, analytics, event persistence, or update manager.
+Mewnu is a native macOS 26+ menu bar app for Apple silicon and Intel. Clicking the cat opens a window without a Dock icon or separate main window. It provides a month view, daily agenda, calendar filters, event details, Help, and permission recovery. It reads existing Apple Calendar accounts; editing remains in Apple Calendar. It has no account system, backend, analytics, event persistence, or calendar network service. Software updates use Sparkle.
 
 Support English and German. Dates, times, time zones, and week starts follow system settings. Personal calendar content must not enter development logs, test artifacts, or documentation.
 
@@ -72,7 +72,7 @@ Persist only hiddenCalendarIDs and menuWindowHeight for product functionality. N
 
 Give icon buttons localized labels and tooltips with 28 × 28-point click areas. Date cells have language-independent YYYY-MM-DD identifiers and VoiceOver information for date, Today, selection, and calendars. Make the longer German permission view scrollable and stack its actions vertically. Use an opaque system window background and calendar colors supplied by the store.
 
-Launch at login is optional and initially unregistered; Help reflects system registration, approval, and error states. Re-read it when the app becomes active. The latest-release action opens the fixed GitHub URL only on activation and performs no app-side network request, version comparison, or automatic installation. Help displays the installed bundle version.
+Launch at login is optional and initially unregistered; Help reflects system registration, approval, and error states. Re-read it when the app becomes active. Help displays the installed version and updater controls. AppUpdater wraps the Sparkle driver; tests/previews use a synthetic driver. Checks and unattended installation default off and are persisted by Sparkle. Explicit checks or enabled automatic checks request the fixed GitHub appcast; archive and feed signatures are required. Calendar refresh does not contact the updater. The browser release link remains a fallback. See ADR-0038.
 
 Keyboard actions: Command-T for Today, Command-left/right for months, Shift-Command-F for filters, Shift-Command-H for Help/Back, and Escape for return. Full keyboard traversal, focus visibility, VoiceOver reading order, and actual dragging require the [interaction checklist](INTERACTION-VALIDATION.md).
 

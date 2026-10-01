@@ -30,3 +30,7 @@ Implementation references:
 - [scripts/ci-signed-release.sh](../../scripts/ci-signed-release.sh)
 - [.github/workflows/release.yml](../../.github/workflows/release.yml)
 - [RELEASING.md](../../RELEASING.md)
+
+## Extension on 2026-10-01
+
+[ADR-0038](0038-signed-automatic-updates.md) adds automatic updates. Stable releases now also publish a signed Sparkle appcast; embedded helpers are signed inside out and build numbers increase.

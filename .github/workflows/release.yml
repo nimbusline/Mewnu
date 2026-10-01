@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: mewnu-release-${{ github.ref }}
+  group: mewnu-release
   cancel-in-progress: false
 
 jobs:
@@ -25,6 +25,8 @@ jobs:
           persist-credentials: false
       - name: Install XcodeGen
         run: scripts/install-xcodegen.sh
+      - name: Install Sparkle signing tools
+        run: scripts/install-sparkle-tools.sh
       - name: Validate entitlements
         run: scripts/validate-entitlements.sh
       - name: Generate project and reject drift
@@ -41,6 +43,7 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
       - name: Build signed and notarized release
         env:
+          SPARKLE_EDDSA_PRIVATE_KEY: ${{ secrets.SPARKLE_EDDSA_PRIVATE_KEY }}
           APPLE_DEVELOPER_ID_P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_P12_BASE64 }}
           APPLE_DEVELOPER_ID_P12_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_P12_PASSWORD }}
           APPLE_ID: ${{ secrets.APPLE_ID }}
@@ -54,6 +57,7 @@ jobs:
           path: |
             dist/*.dmg
             dist/*.sha256
+            dist/appcast.xml
           if-no-files-found: error
           retention-days: 14
 
@@ -75,5 +79,5 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$RELEASE_TAG" dist/*.dmg dist/*.sha256 \
-            --verify-tag --title "Mewnu $RELEASE_TAG" --generate-notes
+          gh release create "$RELEASE_TAG" dist/*.dmg dist/*.sha256 dist/appcast.xml \
+            --verify-tag --latest --title "Mewnu $RELEASE_TAG" --generate-notes

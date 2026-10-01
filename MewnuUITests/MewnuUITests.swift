@@ -71,17 +71,48 @@ final class MewnuUITests: XCTestCase {
         let toggle = app.checkBoxes["launchAtLoginToggle"]
         XCTAssertTrue(toggle.waitForExistence(timeout: 5))
         toggle.click()
-        app.scrollViews["helpScroll"].scroll(byDeltaX: 0, deltaY: -200)
         XCTAssertTrue(app.staticTexts["loginItemStatus"].waitForExistence(timeout: 5))
         XCTAssertEqual(textContent(app.staticTexts["loginItemStatus"]), "Autostart ist eingeschaltet.")
         toggle.click()
         XCTAssertEqual(textContent(app.staticTexts["loginItemStatus"]), "Autostart ist ausgeschaltet.")
         XCTAssertTrue(app.staticTexts["installedVersion"].exists)
+        app.scrollViews["helpScroll"].scroll(byDeltaX: 0, deltaY: -350)
         let release = app.buttons["latestReleaseButton"]
         XCTAssertEqual(release.label, "Neueste Veröffentlichung öffnen")
         release.click()
         XCTAssertEqual(app.buttons["helpButton"].label, "Zurück")
         assertFooterLayout(app)
+    }
+
+    func testAutomaticUpdatePreferencesInGermanAreIsolatedAndRecoverable() {
+        let app = XCUIApplication()
+        app.launchArguments += ["-ui-testing", "-AppleLanguages", "(de)"]
+        app.launch()
+        openMenu(app)
+        app.buttons["helpButton"].click()
+        app.scrollViews["helpScroll"].scroll(byDeltaX: 0, deltaY: -650)
+        let check = app.buttons["checkForUpdatesButton"]
+        XCTAssertEqual(check.label, "Nach Updates suchen …")
+        check.click()
+        let checks = app.checkBoxes["automaticUpdateChecksToggle"]
+        let install = app.checkBoxes["automaticUpdateInstallationToggle"]
+        XCTAssertEqual(checks.label, "Automatisch nach Updates suchen")
+        XCTAssertEqual(install.label, "Updates automatisch installieren")
+        XCTAssertFalse(install.isEnabled)
+        checks.click()
+        XCTAssertTrue(install.isEnabled)
+        let viewport = app.scrollViews["helpScroll"].frame
+        guard viewport.contains(install.frame) else {
+            XCTFail("Synthetic install checkbox outside viewport: \(install.frame), viewport: \(viewport)")
+            return
+        }
+        install.click()
+        XCTAssertEqual((install.value as? NSNumber)?.intValue, 1)
+        checks.click()
+        XCTAssertFalse(install.isEnabled)
+        XCTAssertEqual((install.value as? NSNumber)?.intValue, 0)
+        app.typeKey(XCUIKeyboardKey.escape, modifierFlags: [])
+        XCTAssertTrue(app.staticTexts["monthTitle"].waitForExistence(timeout: 5))
     }
 
     func testLongGermanDetailsScrollAtMinimumHeight() {

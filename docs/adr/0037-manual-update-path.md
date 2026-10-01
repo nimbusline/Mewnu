@@ -1,6 +1,6 @@
 # ADR-0037: Offer a browser-based path to release updates
 
-- **Status:** accepted
+- **Status:** superseded by [ADR-0038](0038-signed-automatic-updates.md)
 - **Decision date:** 2026-10-01
 - **Documented:** 2026-10-01
 - **Implementation:** implemented; automated evidence and remaining manual checks are recorded in [implementation validation](../ADR-IMPLEMENTATION-VALIDATION.md).

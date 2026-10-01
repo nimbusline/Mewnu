@@ -5,6 +5,7 @@ struct ContentView: View {
     @ObservedObject var model: CalendarViewModel
     @ObservedObject var windowSize: MenuWindowSize
     @ObservedObject var preferences: AppPreferences = AppPreferences()
+    @ObservedObject var updater: AppUpdater = AppUpdater()
     @Environment(\.locale) private var locale
     @Environment(\.calendar) private var calendar
     @State private var showingHelp = false
@@ -274,10 +275,26 @@ struct ContentView: View {
                     .accessibilityIdentifier("loginItemSettingsButton")
                 Text(String(format: String(localized: "Installed version: %@"), preferences.installedVersion))
                     .accessibilityIdentifier("installedVersion")
+                Button("Check for updates…") { updater.checkForUpdates() }
+                    .disabled(!updater.canCheckForUpdates)
+                    .accessibilityIdentifier("checkForUpdatesButton")
+                Toggle("Automatically check for updates", isOn: Binding(
+                    get: { updater.automaticallyChecksForUpdates },
+                    set: { updater.setAutomaticChecks($0) }
+                ))
+                .toggleStyle(.checkbox)
+                .accessibilityIdentifier("automaticUpdateChecksToggle")
+                Toggle("Automatically install updates", isOn: Binding(
+                    get: { updater.automaticallyInstallsUpdates },
+                    set: { updater.setAutomaticInstallation($0) }
+                ))
+                .toggleStyle(.checkbox)
+                .disabled(!updater.automaticallyChecksForUpdates)
+                .accessibilityIdentifier("automaticUpdateInstallationToggle")
+                Text("Updates are downloaded from GitHub and verified before installation. Automatic updates can restart Mewnu when it quits.")
+                    .font(.caption).foregroundStyle(.secondary)
                 Button("Open latest release") { preferences.openLatestRelease() }
                     .accessibilityIdentifier("latestReleaseButton")
-                Text("Compare the installed version with the release page, then download and replace Mewnu manually.")
-                    .font(.caption).foregroundStyle(.secondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(18)
