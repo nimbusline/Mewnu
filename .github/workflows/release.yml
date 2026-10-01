@@ -55,8 +55,8 @@ jobs:
         with:
           name: Mewnu-${{ steps.version.outputs.version }}-${{ github.sha }}
           path: |
-            dist/*.dmg
-            dist/*.sha256
+            dist/Mewnu.dmg
+            dist/Mewnu.dmg.sha256
             dist/appcast.xml
           if-no-files-found: error
           retention-days: 14
@@ -79,5 +79,5 @@ jobs:
           GH_REPO: ${{ github.repository }}
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
-          gh release create "$RELEASE_TAG" dist/*.dmg dist/*.sha256 dist/appcast.xml \
+          gh release create "$RELEASE_TAG" dist/Mewnu.dmg dist/Mewnu.dmg.sha256 dist/appcast.xml \
             --verify-tag --latest --title "Mewnu $RELEASE_TAG" --generate-notes

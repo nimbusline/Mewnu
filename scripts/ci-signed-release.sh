@@ -71,7 +71,7 @@ MEWNU_NOTARY_KEYCHAIN="$keychain" \
   scripts/release.sh "$1"
 
 app="$PWD/build/DerivedData/Build/Products/Release/Mewnu.app"
-artifact="$PWD/dist/Mewnu-v$1-macos.dmg"
+artifact="$PWD/dist/Mewnu.dmg"
 test "$(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' "$app/Contents/Info.plist")" = "$1"
 test "$(/usr/libexec/PlistBuddy -c 'Print :LSUIElement' "$app/Contents/Info.plist")" = true
 codesign --verify --deep --strict "$app"
@@ -79,5 +79,5 @@ codesign --verify --verbose=2 "$artifact"
 xcrun stapler validate "$artifact"
 hdiutil verify "$artifact"
 spctl --assess --type open --context context:primary-signature --verbose=2 "$artifact"
-(cd dist && shasum -a 256 -c "Mewnu-v$1-macos.dmg.sha256")
+(cd dist && shasum -a 256 -c "Mewnu.dmg.sha256")
 test -s "$artifact"

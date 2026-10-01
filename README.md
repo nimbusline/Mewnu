@@ -10,6 +10,8 @@ Click the cat to see your month, browse a day's agenda, and read event details w
 
 **macOS 26+ · Apple silicon and Intel · English and German · No account or subscription**
 
+**[Download Mewnu for macOS (.dmg)](https://github.com/nimbusline/Mewnu/releases/latest/download/Mewnu.dmg)**
+
 [For users](#for-users) · [Screenshots](#screenshots) · [For developers](#for-developers) · [Contributing](CONTRIBUTING.md)
 
 ## For users
@@ -69,19 +71,19 @@ These native app views use **fictional sample calendars and events** on a fixed 
 
 ### Download and install
 
-Download the signed app from [GitHub Releases](https://github.com/nimbusline/Mewnu/releases/latest), or [build Mewnu from source](#build-and-run).
+Download the signed app directly: **[Mewnu for macOS (.dmg)](https://github.com/nimbusline/Mewnu/releases/latest/download/Mewnu.dmg)**. Find release notes and checksums on [GitHub Releases](https://github.com/nimbusline/Mewnu/releases/latest), or [build Mewnu from source](#build-and-run).
 
 To install:
 
-1. Download `Mewnu-vX.Y.Z-macos.dmg` from GitHub Releases.
+1. Download the DMG using the link above.
 2. Open the disk image and drag **Mewnu** to **Applications**.
 3. Eject the disk image, then open Mewnu from Applications.
 4. Look for the cat in your menu bar and allow calendar access when prompted.
 
-Release downloads include a `.sha256` checksum. To verify a download, put both files in the same folder and run the following command, replacing `X.Y.Z` with the release version:
+Release downloads include a `.sha256` checksum. To verify a download, put both files in the same folder and run the following command:
 
 ```sh
-shasum -a 256 -c Mewnu-vX.Y.Z-macos.dmg.sha256
+shasum -a 256 -c Mewnu.dmg.sha256
 ```
 
 ### Updating

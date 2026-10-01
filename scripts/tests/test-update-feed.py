@@ -55,8 +55,8 @@ try key.publicKey.rawRepresentation.base64EncodedString().write(toFile: CommandL
     run(['codesign', '--force', '--sign', '-', str(app.parent)])
     archives = stage / 'archives'
     archives.mkdir()
-    archive = archives / 'Mewnu-v1.1.0-macos.zip'
-    run(['ditto', '-c', '-k', '--sequesterRsrc', '--keepParent', str(app.parent), str(archive)])
+    archive = archives / 'Mewnu.dmg'
+    run(['hdiutil', 'create', '-volname', 'Mewnu', '-srcfolder', str(app.parent), '-format', 'UDZO', str(archive)])
     environment = dict(os.environ, SPARKLE_EDDSA_PRIVATE_KEY=key.read_text())
     result = subprocess.run([str(ROOT / 'scripts/generate-update-feed.sh'), '1.1.0', str(archive), str(app.parent)],
                             env=environment, capture_output=True, text=True)
@@ -64,6 +64,8 @@ try key.publicKey.rawRepresentation.base64EncodedString().write(toFile: CommandL
     feed = archives / 'appcast.xml'
     run([str(TOOLS / 'sign_update'), '--ed-key-file', str(key), '--verify', str(feed)])
     metadata_check.validate(feed, archive, '1.1.0', info)
+    enclosure = ET.fromstring(feed.read_bytes()).find('./channel/item/enclosure')
+    assert enclosure.get('url') == 'https://github.com/nimbusline/Mewnu/releases/download/v1.1.0/Mewnu.dmg'
     original_feed = feed.read_bytes()
     for old, new in [(b'1.1.0', b'1.1.9'), (b'https://github.com/', b'https://example.invalid/')]:
         feed.write_bytes(original_feed.replace(old, new))

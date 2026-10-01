@@ -54,7 +54,7 @@ trap 'rm -rf -- "$staging"' EXIT
 ditto "$app" "$staging/Mewnu.app"
 ln -s /Applications "$staging/Applications"
 
-artifact="$root/dist/Mewnu-v$version-macos.dmg"
+artifact="$root/dist/Mewnu.dmg"
 hdiutil create -volname Mewnu -srcfolder "$staging" -format UDZO -ov "$artifact"
 codesign "${sign_options[@]}" --force --timestamp --identifier io.github.nimbusline.mewnu.dmg --sign "$sign_identity" "$artifact"
 codesign --verify --verbose=2 "$artifact"
@@ -64,6 +64,6 @@ xcrun stapler validate "$artifact"
 codesign --verify --verbose=2 "$artifact"
 hdiutil verify "$artifact"
 spctl --assess --type open --context context:primary-signature --verbose=2 "$artifact"
-(cd "$root/dist" && shasum -a 256 "Mewnu-v$version-macos.dmg" > "Mewnu-v$version-macos.dmg.sha256")
+(cd "$root/dist" && shasum -a 256 "Mewnu.dmg" > "Mewnu.dmg.sha256")
 scripts/generate-update-feed.sh "$version" "$artifact" "$app"
 print "Release ready: $artifact"
